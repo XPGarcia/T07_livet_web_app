@@ -9,7 +9,7 @@ import Home from '../../Pages/Home/Home';
 import Schedule from '../../Pages/Schedule/Schedule';
 import PacientList from '../../Pages/Pacients/PacientList';
 
-function Router(props) {
+function SecreatryRouter(props) {
   return (
     <BrowserRouter>
       <Routes>
@@ -21,4 +21,4 @@ function Router(props) {
   );
 }
 
-export default Router;
+export default SecreatryRouter;
