@@ -2,7 +2,7 @@ import EventIcon from '@mui/icons-material/Event';
 import PeopleIcon from '@mui/icons-material/People';
 import HomeIcon from '@mui/icons-material/Home';
 
-const routes = [
+const secretaryRoutes = [
   {
     "name": "Home",
     "link": "/",
@@ -20,4 +20,4 @@ const routes = [
   }
 ];
 
-export default routes;
+export default secretaryRoutes;

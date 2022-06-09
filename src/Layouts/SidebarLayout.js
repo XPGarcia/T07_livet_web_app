@@ -4,7 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 
-import routes from '../Routes/Secretary/Routes';
+import secretaryRoutes from '../Routes/SecretaryRoutes';
+import doctorRoutes from '../Routes/DoctorRoutes';
+import Roles from '../Utils/Roles';
 
 const drawerWidth = 240;
 
@@ -36,6 +38,12 @@ const theme = createTheme({
 });
 
 function SidebarLayout(props) {
+  const session = JSON.parse(localStorage.getItem("redux-react-session/USER-SESSION"));
+
+  let routes;
+  if (session['role'] === Roles.SECRETARY) routes = secretaryRoutes;
+  else if (session['role'] === Roles.DOCTOR) routes = doctorRoutes;
+
   return (
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex' }}>

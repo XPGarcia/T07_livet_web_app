@@ -1,7 +1,9 @@
-import Login from './Pages/Login/Login';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import SecreatryRouter from './Routes/Secretary/SecretaryRouter';
 import { useSelector } from 'react-redux';
+import { sessionService } from 'redux-react-session';
+import store from './Store/index';
+import { checkTimeout } from './Store/auth';
+import Router from './Routes';
 
 function App() {
   const theme = createTheme({
@@ -31,14 +33,17 @@ function App() {
     }
   });
 
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+  const validateSession = (session) => {
+    const timeout = checkTimeout(session['refreshDate']);
+    // session in not timeout
+    return !timeout;
+  };
 
-  console.log(isAuthenticated);
+  sessionService.initSessionService(store, { redirectPath: '/login', driver: 'LOCALSTORAGE', validateSession });
 
   return (
     <ThemeProvider theme={theme}>
-      {!isAuthenticated && <Login />}
-      {isAuthenticated && <SecreatryRouter />}
+      <Router />
     </ThemeProvider>
   );
 }

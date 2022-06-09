@@ -17,14 +17,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import ProfilePic from '../../Components/ProfilePic/ProfilePic';
-import CustomLink from '../../Utils/CustomLink/CustomLink';
+import CustomLink from '../../Utils/CustomLink';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+import { logout } from '../../Store/auth';
 
 function CustomSidebar(props) {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      logout();
+      navigate("/login");
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   const drawer = (
     <div>
@@ -34,7 +49,7 @@ function CustomSidebar(props) {
       <Divider />
       <List>
         {props.routes.map((route, index) => (
-          <CustomLink to={route.link}>
+          <CustomLink key={index} to={route.link} style={{ textDecoration: 'none' }}>
             <ListItem key={route.name} sx={{ color: "#FFFFFF" }} disablePadding>
               <ListItemButton>
                 <ListItemIcon sx={{ color: "#FFFFFF" }}>
@@ -97,6 +112,13 @@ function CustomSidebar(props) {
           }}
         >
           {drawer}
+          <Box sx={{
+            position: 'relative',
+            display: 'block',
+            height: '100%'
+          }}>
+            <Button variant="contained" color="error" className="logoutButton" onClick={handleLogout}>Cerrar sesión</Button>
+          </Box>
         </Drawer>
         <Drawer
           variant="permanent"
@@ -107,6 +129,13 @@ function CustomSidebar(props) {
           open
         >
           {drawer}
+          <Box sx={{
+            position: 'relative',
+            display: 'block',
+            height: '100%'
+          }}>
+            <Button variant="contained" color="error" className="logoutButton" onClick={handleLogout}>Cerrar sesión</Button>
+          </Box>
         </Drawer>
       </Box>
     </div>
