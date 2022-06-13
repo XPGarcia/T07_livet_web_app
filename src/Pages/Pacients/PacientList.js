@@ -1,10 +1,13 @@
 import React from 'react';
 import SidebarLayout from '../../Layouts/SidebarLayout';
+import { TablePacient } from '../../Components/TablePacient/TablePacient' 
 
 function PacientList(props) {
   return(
     <SidebarLayout>
-      <h2>Hola, soy la lista de pacientes</h2>
+      <div  style={{textAlign: "center"}}>
+      <h1>Fichas Médicas de Pacientes</h1></div>
+      <TablePacient />
     </SidebarLayout>
   );
 }
