@@ -24,7 +24,6 @@ function Router(props) {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
-        {!isAuthenticated && <Route path="/" element={<Navigate to="/login" replace />} />}
         {/* Secretary Routes */}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/" element={<Protected><Home /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/citas" element={<Protected><Schedule /></Protected>} />}

@@ -1,0 +1,42 @@
+.content {
+  color: white;
+  padding: 4px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+}
+
+.container {
+  width: 100%;
+  white-space: nowrap;
+  color: white;
+}
+
+.title {
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-bottom: 3px;
+}
+
+.textContainer {
+  line-height: 1;
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 3px;
+}
+
+.time {
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

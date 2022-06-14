@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/exports';
 
 import { Backdrop, Button, Card, CircularProgress } from '@mui/material';
 import { TextField } from '@mui/material';
@@ -13,6 +14,7 @@ import Alert from '../../Components/Alert/Alert';
 
 function Login(props) {
   const navigate = useNavigate();
+  const isAuthenticated = useSelector(state => state.sessionReducer.authenticated)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -20,6 +22,11 @@ function Login(props) {
 
   const [emailError, setEmailError] = useState({ hasError: false, message: "" });
   const [passwordError, setPasswordError] = useState({ hasError: false, message: "" });
+
+  /* Login disabled for active session */
+  if (isAuthenticated) {
+    navigate("/");
+  }
 
   const isValid = () => {
     const emailErrorData = Validator(email, ["required"]);
