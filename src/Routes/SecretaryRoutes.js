@@ -5,7 +5,7 @@ import HomeIcon from '@mui/icons-material/Home';
 const secretaryRoutes = [
   {
     "name": "Home",
-    "link": "/",
+    "link": "/home",
     "icon": <HomeIcon />
   },
   {
