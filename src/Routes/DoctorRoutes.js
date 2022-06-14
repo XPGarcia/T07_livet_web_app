@@ -9,7 +9,7 @@ const doctorRoutes = [
   },
   {
     "name": "Pacientes",
-    "link": "/home",
+    "link": "/pacientes",
     "icon": <PeopleIcon />
   }
 ];
