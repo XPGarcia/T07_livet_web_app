@@ -23,11 +23,6 @@ function Login(props) {
   const [emailError, setEmailError] = useState({ hasError: false, message: "" });
   const [passwordError, setPasswordError] = useState({ hasError: false, message: "" });
 
-  /* Login disabled for active session */
-  if (isAuthenticated) {
-    navigate("/");
-  }
-
   const isValid = () => {
     const emailErrorData = Validator(email, ["required"]);
     setEmailError(emailErrorData);

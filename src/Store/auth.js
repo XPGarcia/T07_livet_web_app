@@ -3,7 +3,7 @@ import { sessionService } from 'redux-react-session';
 import UserPool from './UserPool';
 
 function checkTimeout(refreshDate) {
-  const hours = 3;
+  const hours = 12;
   const now = (new Date()).getTime();
   // session timeout
   return (now - refreshDate > hours * 60 * 60 * 1000);

@@ -16,6 +16,7 @@ import Home from '../Pages/Home/Home';
 import Protected from '../Utils/Protected';
 import Specialties from '../Pages/Specialties/Specialties';
 import MedicalCenter from '../Pages/Specialties/MedicalCenter';
+import Landing from '../Pages/Home/Landing';
 
 function Router(props) {
   const isAuthenticated = useSelector(state => state.sessionReducer.authenticated);
@@ -25,17 +26,18 @@ function Router(props) {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         {/* Secretary Routes */}
-        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/" element={<Protected><Home /></Protected>} />}
+        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/home" element={<Protected><Home /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/citas" element={<Protected><Schedule /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/pacientes" element={<Protected><PacientList /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/crearCita" element={<Protected><Specialties /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/crearCita/centroMedico" element={<Protected><MedicalCenter /></Protected>} />}
         {/* Doctor Routes */}
-        {(isAuthenticated && session['role'] === Roles.DOCTOR) && <Route path="/" element={<Protected><Home /></Protected>} />}
+        {(isAuthenticated && session['role'] === Roles.DOCTOR) && <Route path="/home" element={<Protected><Home /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.DOCTOR) && <Route path="/pacientes" element={<Protected><PacientList /></Protected>} />}
-        <Route path="*" element={<Protected><Home /></Protected>} />
+        <Route path="*" element={<Protected><Landing /></Protected>} />
       </Routes>
     </BrowserRouter>
   );

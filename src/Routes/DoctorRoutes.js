@@ -4,12 +4,12 @@ import HomeIcon from '@mui/icons-material/Home';
 const doctorRoutes = [
   {
     "name": "Home",
-    "link": "/",
+    "link": "/home",
     "icon": <HomeIcon />
   },
   {
     "name": "Pacientes",
-    "link": "/pacientes",
+    "link": "/home",
     "icon": <PeopleIcon />
   }
 ];
