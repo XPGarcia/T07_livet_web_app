@@ -17,15 +17,15 @@ import CustomAppointmentTooltip from './CustomAppointmentTooltip';
 import { calendarActions } from '../../Store/calendar';
 import Appointment from './Appointment';
 import AppointmentComponent from './AppointmentComponent';
-import NavigatorProps from './NavigatorProps';
+// import NavigatorProps from './NavigatorProps';
 
 const [startHour, endHour] = [8, 21];
 
 const schedulerData = [
-  { id: 1, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-11T09:30', endDate: '2022-06-11T10:00', title: 'Cardiología', code: 'cardiology' },
-  { id: 2, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-11T09:30', endDate: '2022-06-11T10:00', title: 'Pediatría', code: 'pediatrics' },
-  { id: 3, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-12T12:00', endDate: '2022-06-12T12:30', title: 'Medicina General', code: 'general_medicine' },
-  { id: 4, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-09T14:30', endDate: '2022-06-09T15:00', title: 'Pediatría', code: 'pediatrics' },
+  { id: 1, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-14T09:30', endDate: '2022-06-14T10:00', title: 'Cardiología', code: 'cardiology' },
+  { id: 2, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-14T09:30', endDate: '2022-06-14T10:00', title: 'Pediatría', code: 'pediatrics' },
+  { id: 3, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-15T12:00', endDate: '2022-06-15T12:30', title: 'Medicina General', code: 'general_medicine' },
+  { id: 4, patient: "Xavier García", doctor: "Doctor Luis", startDate: '2022-06-13T14:30', endDate: '2022-06-13T15:00', title: 'Pediatría', code: 'pediatrics' },
 ];
 
 const data = schedulerData.map(appointment => {
@@ -71,6 +71,7 @@ function Calendar(props) {
       <Paper>
         <Scheduler
           data={data}
+          locale="es-EC"
         >
           <ViewState
             currentDate={calendar.currentDate}
@@ -90,7 +91,7 @@ function Calendar(props) {
           />
           <Appointments appointmentComponent={Appointment} appointmentContentComponent={AppointmentComponent} />
           <CustomToolbar />
-          <DateNavigator rootComponent={NavigatorProps}  />
+          <DateNavigator />
           <TodayButton messages={{ today: "Hoy" }} />
           <ViewSwitcher />
           <CustomAppointmentTooltip />
