@@ -1,0 +1,50 @@
+.content {
+  align-items: center;
+  padding: 0px 8px 14px;
+}
+
+.titleContainer {
+  padding-bottom: 15px;
+}
+
+.container {
+  padding-bottom: 10px;
+}
+
+.textCenter {
+  text-align: center;
+}
+
+.lens {
+  width: 36px !important;
+  height: 36px !important;
+  vertical-align: super;
+}
+
+.title {
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+  color: rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.dateAndTitle {
+  line-height: 1.1;
+}
+
+.icon {
+  color: rgba(0, 0, 0, 0.54);
+  vertical-align: middle;
+}
+
+.text {
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  display: inline-block;
+}
