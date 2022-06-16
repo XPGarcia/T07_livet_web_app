@@ -32,8 +32,8 @@ function Router(props) {
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/home" element={<Protected><Home /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/citas" element={<Protected><Schedule /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/pacientes" element={<Protected><PacientList /></Protected>} />}
-        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/crearCita" element={<Protected><Specialties /></Protected>} />}
-        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/crearCita/centroMedico" element={<Protected><MedicalCenter /></Protected>} />}
+        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/citas/crearCita" element={<Protected><Specialties /></Protected>} />}
+        {(isAuthenticated && session['role'] === Roles.SECRETARY) && <Route path="/citas/crearCita/centroMedico" element={<Protected><MedicalCenter /></Protected>} />}
         {/* Doctor Routes */}
         {(isAuthenticated && session['role'] === Roles.DOCTOR) && <Route path="/home" element={<Protected><Home /></Protected>} />}
         {(isAuthenticated && session['role'] === Roles.DOCTOR) && <Route path="/pacientes" element={<Protected><PacientList /></Protected>} />}
