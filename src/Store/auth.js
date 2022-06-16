@@ -1,51 +1,52 @@
-import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
-import { sessionService } from 'redux-react-session';
-import UserPool from './UserPool';
-import Roles from '../Utils/Roles';
+import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import { sessionService } from "redux-react-session";
+// eslint-disable-next-line camelcase
 import jwt_decode from "jwt-decode";
+import UserPool from "./UserPool";
 
-function parseToken () {
-  const session = JSON.parse(localStorage.getItem("redux-react-session/USER-SESSION"));
+function parseToken() {
+  const session = JSON.parse(
+    localStorage.getItem("redux-react-session/USER-SESSION")
+  );
   let token;
   try {
-    token = jwt_decode(session['token']);
+    token = jwt_decode(session.token);
   } catch (e) {
     console.log(e);
   }
   return token;
-};
+}
 
 const hasRole = (role) => {
   const token = parseToken();
-  const roles = token['cognito:groups'];
+  const roles = token["cognito:groups"];
   return roles.includes(role);
-}
-
-const getUserField = (field) => {
-  return parseToken()[field];
 };
+
+const getUserField = (field) => parseToken()[field];
 
 function checkTimeout(refreshDate) {
   const hours = 12;
-  const now = (new Date()).getTime();
+  const now = new Date().getTime();
   // session timeout
-  return (now - refreshDate > hours * 60 * 60 * 1000);
+  return now - refreshDate > hours * 60 * 60 * 1000;
 }
 
 function checkSession() {
-  sessionService.loadSession()
-    .then(session => {
-      const timeout = checkTimeout(session['refreshDate']);
+  sessionService
+    .loadSession()
+    .then((session) => {
+      const timeout = checkTimeout(session.refreshDate);
       if (timeout) {
         sessionService.deleteSession();
       } else {
         sessionService.saveSession({
           ...session,
-          refreshDate: (new Date()).getTime()
+          refreshDate: new Date().getTime()
         });
       }
     })
-    .catch(err => {
+    .catch(() => {
       console.log("Error while loading session");
     });
 }
@@ -55,9 +56,8 @@ function authenticate(user, authDetails) {
     user.authenticateUser(authDetails, {
       onSuccess: async (data) => {
         const accessToken = data.getIdToken().getJwtToken();
-        const params = data.getIdToken().decodePayload();
         await sessionService.saveSession({
-          refreshDate: (new Date()).getTime(),
+          refreshDate: new Date().getTime(),
           token: accessToken
         });
         resolve(true);
@@ -82,21 +82,20 @@ function login(email, password) {
     });
 
     authenticate(user, authDetails)
-      .then(data => resolve(data))
-      .catch(err => reject(err));
+      .then((data) => resolve(data))
+      .catch((err) => reject(err));
   });
 }
 
 function logout() {
-  return new Promise(async (resolve, reject) => {
+  return new Promise((resolve, reject) => {
     const user = UserPool.getCurrentUser();
     if (user) {
       user.signOut();
-      await sessionService.deleteSession();
-      resolve(true);
+      sessionService.deleteSession().then(resolve(true));
     }
-    reject(false);
+    reject(Error("User not found"));
   });
 }
 
-export { checkSession, checkTimeout, login, logout, hasRole }
+export { checkSession, checkTimeout, login, logout, hasRole, getUserField };

@@ -19,10 +19,10 @@ const Specialties = {
     code: "serum_therapy",
     color: "#714BC3"
   }
-}
+};
 
 function pickColor(code) {
-  switch(code) {
+  switch (code) {
     case Specialties.CARDIOLOGY.code:
       return Specialties.CARDIOLOGY.color;
     case Specialties.GENERAL_MEDICINE.code:
@@ -30,9 +30,11 @@ function pickColor(code) {
     case Specialties.GINECOLOGY.code:
       return Specialties.GINECOLOGY.color;
     case Specialties.PEDIATRICS.code:
-      return Specialties.PEDIATRICS.color
+      return Specialties.PEDIATRICS.color;
     case Specialties.SERUM_THERAPY.code:
       return Specialties.SERUM_THERAPY.color;
+    default:
+      return null;
   }
 }
 

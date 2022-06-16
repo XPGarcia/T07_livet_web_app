@@ -1,22 +1,20 @@
-import React from 'react';
-import {
-  BrowserRouter,
-  Routes,
-  Route
-} from "react-router-dom";
-import { useSelector } from 'react-redux';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import { hasRole } from '../Store/auth';
+import { hasRole } from "../Store/auth";
 
-import Login from '../Pages/Login/Login';
-import Protected from '../Utils/Protected';
-import Landing from '../Pages/Home/Landing';
-import Roles from '../Utils/Roles';
-import { SecretaryRoutes } from './SecretaryRoutes';
-import { DoctorRoutes } from './DoctorRoutes';
+import Login from "../Pages/Login/Login";
+import Protected from "../Utils/Protected";
+import Landing from "../Pages/Home/Landing";
+import Roles from "../Utils/Roles";
+import SecretaryRouter from "./Secretary/SecretaryRouter";
+import DoctorRouter from "./Doctor/DoctorRouter";
 
-function Router(props) {
-  const isAuthenticated = useSelector(state => state.sessionReducer.authenticated);
+function Router() {
+  const isAuthenticated = useSelector(
+    (state) => state.sessionReducer.authenticated
+  );
 
   if (!isAuthenticated) {
     return (
@@ -24,7 +22,14 @@ function Router(props) {
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
-          <Route path="*" element={<Protected><Landing /></Protected>} />
+          <Route
+            path="*"
+            element={
+              <Protected>
+                <Landing />
+              </Protected>
+            }
+          />
         </Routes>
       </BrowserRouter>
     );
@@ -32,11 +37,10 @@ function Router(props) {
 
   return (
     <BrowserRouter>
-      {hasRole(Roles.SECRETARY) && <SecretaryRoutes />}
-      {hasRole(Roles.DOCTOR) && <DoctorRoutes />}
+      {hasRole(Roles.SECRETARY) && <SecretaryRouter />}
+      {hasRole(Roles.DOCTOR) && <DoctorRouter />}
     </BrowserRouter>
   );
-
 }
 
 export default Router;

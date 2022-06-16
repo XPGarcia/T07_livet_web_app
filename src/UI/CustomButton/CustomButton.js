@@ -1,23 +1,20 @@
-import React from 'react';
-import { Button, createTheme, ThemeProvider } from '@mui/material';
+import React from "react";
+import { Button, createTheme, ThemeProvider } from "@mui/material";
 
 function CustomButton(props) {
+  const { color, contrastText, children } = props;
   const theme = createTheme({
     palette: {
       primary: {
-        main: props.color,
-        contrastText: (props.contratText ?? "#FFFFFF")
+        main: color,
+        contrastText: contrastText ?? "#FFFFFF"
       }
-    },
+    }
   });
 
   return (
     <ThemeProvider theme={theme}>
-      <Button
-        variant="contained"
-      >
-        {props.children}
-      </Button>
+      <Button variant="contained">{children}</Button>
     </ThemeProvider>
   );
 }

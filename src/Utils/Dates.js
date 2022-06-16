@@ -1,9 +1,27 @@
 const months = [
-  "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-  "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+  "Enero",
+  "Febrero",
+  "Marzo",
+  "Abril",
+  "Mayo",
+  "Junio",
+  "Julio",
+  "Agosto",
+  "Septiembre",
+  "Octubre",
+  "Noviembre",
+  "Diciembre"
 ];
 
-const days = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+const days = [
+  "Lunes",
+  "Martes",
+  "Miércoles",
+  "Jueves",
+  "Viernes",
+  "Sábado",
+  "Domingo"
+];
 
 function formatDate(data) {
   const fullDate = new Date(data);
@@ -16,10 +34,11 @@ function formatDate(data) {
 
 function formatTime(data) {
   const fullDate = new Date(data);
-  // const hours = fullDate.getHours();
-  // const minutes = fullDate.getMinutes();
-  // return `${hours}:${minutes}`;
-  return fullDate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+  return fullDate.toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+    hour12: true
+  });
 }
 
-export { formatDate, formatTime }
+export { formatDate, formatTime };

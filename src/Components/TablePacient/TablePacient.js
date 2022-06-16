@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import React from "react";
 import {
   GridRowModes,
@@ -8,41 +9,37 @@ import {
   gridPageCountSelector,
   gridPageSelector,
   useGridApiContext,
-  useGridSelector,
-  GridToolbarExport,
-  GridToolbarQuickFilter,
+  useGridSelector
 } from "@mui/x-data-grid";
 
-import Modal from "@mui/material/Modal";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Close";
 
-import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
 import { randomCreatedDate, randomId } from "@mui/x-data-grid-generator";
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import Alert from "@mui/material/Alert";
 import Pagination from "@mui/material/Pagination";
 
-import Fab from "@mui/material/Fab";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+// const style = {
+//   position: "absolute",
+//   top: "50%",
+//   left: "50%",
+//   transform: "translate(-50%, -50%)",
+//   width: 400,
+//   bgcolor: "background.paper",
+//   border: "2px solid #000",
+//   boxShadow: 24,
+//   p: 4
+// };
+
 const initialRows = [
   {
     id: randomId(),
@@ -50,7 +47,7 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate(),
+    Modificado: randomCreatedDate()
   },
   {
     id: randomId(),
@@ -58,7 +55,7 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate(),
+    Modificado: randomCreatedDate()
   },
   {
     id: randomId(),
@@ -66,8 +63,8 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate(),
-  },
+    Modificado: randomCreatedDate()
+  }
 ];
 function CustomPagination() {
   const apiRef = useGridApiContext();
@@ -96,12 +93,12 @@ function EditToolbar(props) {
         Nombres: "",
         Cedula: "",
         Estado: "",
-        Modificado: randomCreatedDate(),
-      },
+        Modificado: randomCreatedDate()
+      }
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "Nombres" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "Nombres" }
     }));
   };
 
@@ -116,7 +113,7 @@ function EditToolbar(props) {
 
 EditToolbar.propTypes = {
   setRowModesModel: PropTypes.func.isRequired,
-  setRows: PropTypes.func.isRequired,
+  setRows: PropTypes.func.isRequired
 };
 
 const StyledGridOverlay = styled("div")(({ theme }) => ({
@@ -126,21 +123,21 @@ const StyledGridOverlay = styled("div")(({ theme }) => ({
   justifyContent: "center",
   height: "100%",
   "& .ant-empty-img-1": {
-    fill: theme.palette.mode === "light" ? "#aeb8c2" : "#262626",
+    fill: theme.palette.mode === "light" ? "#aeb8c2" : "#262626"
   },
   "& .ant-empty-img-2": {
-    fill: theme.palette.mode === "light" ? "#f5f5f7" : "#595959",
+    fill: theme.palette.mode === "light" ? "#f5f5f7" : "#595959"
   },
   "& .ant-empty-img-3": {
-    fill: theme.palette.mode === "light" ? "#dce0e6" : "#434343",
+    fill: theme.palette.mode === "light" ? "#dce0e6" : "#434343"
   },
   "& .ant-empty-img-4": {
-    fill: theme.palette.mode === "light" ? "#fff" : "#1c1c1c",
+    fill: theme.palette.mode === "light" ? "#fff" : "#1c1c1c"
   },
   "& .ant-empty-img-5": {
     fillOpacity: theme.palette.mode === "light" ? "0.8" : "0.08",
-    fill: theme.palette.mode === "light" ? "#f5f5f5" : "#fff",
-  },
+    fill: theme.palette.mode === "light" ? "#f5f5f5" : "#fff"
+  }
 }));
 
 function CustomNoRowsOverlay() {
@@ -190,20 +187,20 @@ function CustomNoRowsOverlay() {
   );
 }
 
-function CustomToolbar() {
-  return (
-    <GridToolbarContainer>
-        <GridToolbarExport/>
-      <GridToolbarQuickFilter />
-    </GridToolbarContainer>
-  );
-}
+// function CustomToolbar() {
+//   return (
+//     <GridToolbarContainer>
+//       <GridToolbarExport />
+//       <GridToolbarQuickFilter />
+//     </GridToolbarContainer>
+//   );
+// }
 
-export function TablePacient() {
+function TablePacient() {
   const [rows, setRows] = React.useState(initialRows);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  // const [open, setOpen] = React.useState(false);
+  // const handleOpen = () => setOpen(true);
+  // const handleClose = () => setOpen(false);
   const [rowModesModel, setRowModesModel] = React.useState({});
 
   const handleClick = () => {
@@ -215,12 +212,12 @@ export function TablePacient() {
         Nombres: "",
         Cedula: "",
         Estado: "",
-        Modificado: randomCreatedDate(),
-      },
+        Modificado: randomCreatedDate()
+      }
     ]);
     setRowModesModel((oldModel) => ({
       ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "Nombres" },
+      [id]: { mode: GridRowModes.Edit, fieldToFocus: "Nombres" }
     }));
   };
   const handleRowEditStart = (params, event) => {
@@ -246,7 +243,7 @@ export function TablePacient() {
   const handleCancelClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
-      [id]: { mode: GridRowModes.View, ignoreModifications: true },
+      [id]: { mode: GridRowModes.View, ignoreModifications: true }
     });
 
     const editedRow = rows.find((row) => row.id === id);
@@ -262,14 +259,28 @@ export function TablePacient() {
   };
 
   const columns = [
-    { field: "Nombres", type: "string", width: 180 ,
-    editable: true,},
-    { field: "Cedula", type: "string", width: 150, align: "center" ,
-    editable: true,},
-    { field: "Estado", type: "string", width: 290, align: "center" ,
-    editable: true,},
-    { field: "Modificado", type: "dateTime", width: 180, align: "center",
-    editable: true, },
+    { field: "Nombres", type: "string", width: 180, editable: true },
+    {
+      field: "Cedula",
+      type: "string",
+      width: 150,
+      align: "center",
+      editable: true
+    },
+    {
+      field: "Estado",
+      type: "string",
+      width: 290,
+      align: "center",
+      editable: true
+    },
+    {
+      field: "Modificado",
+      type: "dateTime",
+      width: 180,
+      align: "center",
+      editable: true
+    },
     {
       field: "actions",
       type: "actions",
@@ -293,7 +304,7 @@ export function TablePacient() {
               className="textPrimary"
               onClick={handleCancelClick(id)}
               color="inherit"
-            />,
+            />
           ];
         }
 
@@ -309,10 +320,10 @@ export function TablePacient() {
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="warning"
-          />,
+          />
         ];
-      },
-    },
+      }
+    }
   ];
 
   return (
@@ -321,11 +332,11 @@ export function TablePacient() {
         height: 450,
         width: "100%",
         "& .actions": {
-          color: "text.secondary",
+          color: "text.secondary"
         },
         "& .textPrimary": {
-          color: "text.primary",
-        },
+          color: "text.primary"
+        }
       }}
     >
       <DataGrid
@@ -336,37 +347,36 @@ export function TablePacient() {
         onRowEditStart={handleRowEditStart}
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
-        
         disableColumnFilter
         disableColumnSelector
         disableDensitySelector
         onCellDoubleClick={(params, event) => {
-            if (!event.ctrlKey) {
-              event.defaultMuiPrevented = true;
-            }
-          }}
+          if (!event.ctrlKey) {
+            event.defaultMuiPrevented = true;
+          }
+        }}
         pagination
         pageSize={5}
         rowsPerPageOptions={[5]}
         components={{
           Toolbar: GridToolbar,
           Pagination: CustomPagination,
-          NoRowsOverlay: CustomNoRowsOverlay,
+          NoRowsOverlay: CustomNoRowsOverlay
         }}
         componentsProps={{
           toolbar: {
             setRows,
             setRowModesModel,
             showQuickFilter: true,
-            quickFilterProps: { debounceMs: 200 },
-          },
+            quickFilterProps: { debounceMs: 200 }
+          }
         }}
         experimentalFeatures={{ newEditingApi: true }}
       />
       <div>
-        <br></br>
+        <br />
       </div>
-      <Stack spacing={2} direction="row" justifyContent='center'>
+      <Stack spacing={2} direction="row" justifyContent="center">
         <Button variant="contained" onClick={handleClick}>
           Nuevo Registro
         </Button>
@@ -389,3 +399,5 @@ export function TablePacient() {
     </Box>
   );
 }
+
+export default TablePacient;

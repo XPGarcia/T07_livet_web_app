@@ -1,16 +1,13 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-import { checkSession } from '../Store/auth';
+import { checkSession } from "../Store/auth";
 
 function CustomLink(props) {
+  const { to, style, children } = props;
   return (
-    <NavLink
-      to={props.to}
-      style={props.style}
-      onClick={checkSession}
-    >
-      {props.children}
+    <NavLink to={to} style={style} onClick={checkSession}>
+      {children}
     </NavLink>
   );
 }

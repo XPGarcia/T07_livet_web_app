@@ -1,7 +1,6 @@
-import { Appointments } from '@devexpress/dx-react-scheduler-material-ui';
-import { pickColor } from '../../Utils/Specialties';
-
-
+import React from "react";
+import { Appointments } from "@devexpress/dx-react-scheduler-material-ui";
+import { pickColor } from "../../Utils/Specialties";
 
 function Appointment({ children, style, ...restProps }) {
   const color = pickColor(restProps.data.code);
@@ -12,7 +11,7 @@ function Appointment({ children, style, ...restProps }) {
       style={{
         ...style,
         backgroundColor: color,
-        borderRadius: '8px',
+        borderRadius: "8px"
       }}
     >
       {children}

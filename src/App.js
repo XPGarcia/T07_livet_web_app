@@ -1,9 +1,9 @@
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { useSelector } from 'react-redux';
-import { sessionService } from 'redux-react-session';
-import store from './Store/index';
-import { checkTimeout } from './Store/auth';
-import Router from './Routes';
+import React from "react";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { sessionService } from "redux-react-session";
+import store from "./Store/index";
+import { checkTimeout } from "./Store/auth";
+import Router from "./Routes";
 
 function App() {
   const theme = createTheme({
@@ -34,12 +34,16 @@ function App() {
   });
 
   const validateSession = (session) => {
-    const timeout = checkTimeout(session['refreshDate']);
+    const timeout = checkTimeout(session.refreshDate);
     // session in not timeout
     return !timeout;
   };
 
-  sessionService.initSessionService(store, { redirectPath: '/login', driver: 'LOCALSTORAGE', validateSession });
+  sessionService.initSessionService(store, {
+    redirectPath: "/login",
+    driver: "LOCALSTORAGE",
+    validateSession
+  });
 
   return (
     <ThemeProvider theme={theme}>

@@ -1,5 +1,5 @@
-import React from 'react';
-import SidebarLayout from '../../Layouts/SidebarLayout';
+import React from "react";
+import SidebarLayout from "../../Layouts/SidebarLayout";
 
 function MedicalAppointment() {
   return (

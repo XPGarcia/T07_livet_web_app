@@ -1,45 +1,46 @@
-import { Toolbar } from '@devexpress/dx-react-scheduler-material-ui';
-import { styled } from '@mui/material/styles';
-import LinearProgress from '@mui/material/LinearProgress';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Toolbar } from "@devexpress/dx-react-scheduler-material-ui";
+import { styled } from "@mui/material/styles";
+import LinearProgress from "@mui/material/LinearProgress";
+import { useSelector } from "react-redux";
 
-const PREFIX = 'Demo';
+const PREFIX = "Demo";
 
 const classes = {
   toolbarRoot: `${PREFIX}-toolbarRoot`,
-  progress: `${PREFIX}-progress`,
+  progress: `${PREFIX}-progress`
 };
 
-const StyledDiv = styled('div')({
+const StyledDiv = styled("div")({
   [`&.${classes.toolbarRoot}`]: {
-    position: 'relative',
-  },
+    position: "relative"
+  }
 });
 
 const StyledLinearProgress = styled(LinearProgress)(() => ({
   [`&.${classes.progress}`]: {
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     bottom: 0,
-    left: 0,
-  },
+    left: 0
+  }
 }));
 
-const ToolbarWithLoading = (
-  ({ children, ...restProps }) => (
+function ToolbarWithLoading({ children, ...restProps }) {
+  return (
     <StyledDiv className={classes.toolbarRoot}>
-      <Toolbar.Root {...restProps}>
-        {children}
-      </Toolbar.Root>
+      <Toolbar.Root {...restProps}>{children}</Toolbar.Root>
       <StyledLinearProgress className={classes.progress} />
     </StyledDiv>
-  )
-);
+  );
+}
 
-function CustomToolbar(props) {
-  const loading = useSelector(state => state.calendar.loading);
+function CustomToolbar() {
+  const loading = useSelector((state) => state.calendar.loading);
 
-  return <Toolbar {...loading ? { rootComponent: ToolbarWithLoading } : null} />;
+  return (
+    <Toolbar {...(loading ? { rootComponent: ToolbarWithLoading } : null)} />
+  );
 }
 
 export default CustomToolbar;

@@ -1,21 +1,28 @@
-import { AppointmentTooltip } from '@devexpress/dx-react-scheduler-material-ui';
-import { Grid } from '@mui/material';
-import { Lens } from '@mui/icons-material';
-import PersonIcon from '@mui/icons-material/Person';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { pickColor } from '../../Utils/Specialties';
-import { formatDate, formatTime } from '../../Utils/Dates';
+import React from "react";
+import { AppointmentTooltip } from "@devexpress/dx-react-scheduler-material-ui";
+import { Grid } from "@mui/material";
+import { Lens } from "@mui/icons-material";
+import PersonIcon from "@mui/icons-material/Person";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { pickColor } from "../../Utils/Specialties";
+import { formatDate, formatTime } from "../../Utils/Dates";
 
-import classes from './CustomAppointmentTooltip.module.css';
-import CustomButton from '../../UI/CustomButton/CustomButton';
+import classes from "./CustomAppointmentTooltip.module.css";
+import CustomButton from "../../UI/CustomButton/CustomButton";
 
-
-function TooltipContent({ appointmentData, ...props }) {
+function TooltipContent({ appointmentData }) {
   return (
     <div className={classes.content}>
-      <Grid container alignItems="flex-start" className={classes.titleContainer}>
+      <Grid
+        container
+        alignItems="flex-start"
+        className={classes.titleContainer}
+      >
         <Grid item xs={2} className={classes.textCenter}>
-          <Lens className={classes.lens} sx={{ color: pickColor(appointmentData.code) }} />
+          <Lens
+            className={classes.lens}
+            sx={{ color: pickColor(appointmentData.code) }}
+          />
         </Grid>
         <Grid item xs={10}>
           <div>
@@ -41,17 +48,25 @@ function TooltipContent({ appointmentData, ...props }) {
           <AccessTimeIcon className={classes.icon} />
         </Grid>
         <Grid item xs={10}>
-          <span>{`${formatTime(appointmentData.startDate)} - ${formatTime(appointmentData.startDate)}`}</span>
+          <span>{`${formatTime(appointmentData.startDate)} - ${formatTime(
+            appointmentData.startDate
+          )}`}</span>
         </Grid>
       </Grid>
-      <Grid container className={classes.container} sx={{ justifyContent: "center" }}>
-        <CustomButton color={pickColor(appointmentData.code)}>Tomar datos</CustomButton>
+      <Grid
+        container
+        className={classes.container}
+        sx={{ justifyContent: "center" }}
+      >
+        <CustomButton color={pickColor(appointmentData.code)}>
+          Tomar datos
+        </CustomButton>
       </Grid>
     </div>
   );
 }
 
-function CustomAppointmentTooltip(props) {
+function CustomAppointmentTooltip() {
   return (
     <AppointmentTooltip
       contentComponent={TooltipContent}

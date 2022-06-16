@@ -1,22 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialCalendarState = {
   appointments: [],
   loading: false,
   currentDate: new Date().toISOString(),
   currentViewName: "Day"
-}
+};
 
-const ecTime = date => new Date(date).toLocaleString();
+const ecTime = (date) => new Date(date).toLocaleString();
 
-const mapAppointmentData = appointment => ({
+const mapAppointmentData = (appointment) => ({
   startDate: ecTime(appointment.startDate),
   endDate: ecTime(appointment.endDate),
   title: appointment.title
 });
 
 const calendarSlice = createSlice({
-  name: 'calendar',
+  name: "calendar",
   initialState: initialCalendarState,
   reducers: {
     setData(state, action) {
