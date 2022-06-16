@@ -13,6 +13,7 @@ import Protected from '../Utils/Protected';
 import Landing from '../Pages/Home/Landing';
 import Roles from '../Utils/Roles';
 import { SecretaryRoutes } from './SecretaryRoutes';
+import { DoctorRoutes } from './DoctorRoutes';
 
 function Router(props) {
   const isAuthenticated = useSelector(state => state.sessionReducer.authenticated);
@@ -32,7 +33,7 @@ function Router(props) {
   return (
     <BrowserRouter>
       {hasRole(Roles.SECRETARY) && <SecretaryRoutes />}
-      {hasRole(Roles.DOCTOR) && <SecretaryRoutes />}
+      {hasRole(Roles.DOCTOR) && <DoctorRoutes />}
     </BrowserRouter>
   );
 

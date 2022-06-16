@@ -11,7 +11,7 @@ function FloatingButton(props) {
 
   const navigateToCita = () => {
     // 👇️ navigate to /crearCita
-    navigate('/crearCita');
+    navigate('/citas/crearCita');
   };
 
   return (

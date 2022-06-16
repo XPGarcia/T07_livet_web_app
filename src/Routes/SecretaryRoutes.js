@@ -45,8 +45,8 @@ function SecretaryRoutes() {
       {secretaryRoutes.map((route, index) => (
         <Route key={index} path={route.link} element={<Protected>{route.component}</Protected>} />
       ))}
-      <Route path="/crearCita" element={<Protected><Specialties /></Protected>} />
-      <Route path="/crearCita/centroMedico" element={<Protected><MedicalCenter /></Protected>} />
+      <Route path="/citas/crearCita" element={<Protected><Specialties /></Protected>} />
+      <Route path="/citas/crearCita/centroMedico" element={<Protected><MedicalCenter /></Protected>} />
       <Route path="*" element={<Protected><Landing /></Protected>} />
     </Routes>
   );
