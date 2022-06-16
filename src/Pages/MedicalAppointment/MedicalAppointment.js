@@ -1,13 +1,12 @@
 import React from 'react';
 import SidebarLayout from '../../Layouts/SidebarLayout';
-import { Permissions } from '../../Store/auth';
 
-function Home(props) {
+function MedicalAppointment() {
   return (
     <SidebarLayout>
-      <h2>Hola, soy el HOME</h2>
+      <h2>Hola, soy la página de las CONSULTAS MÉDICAS</h2>
     </SidebarLayout>
   );
 }
 
-export default Home;
+export default MedicalAppointment;

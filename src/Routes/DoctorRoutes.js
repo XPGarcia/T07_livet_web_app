@@ -1,22 +1,21 @@
 import PeopleIcon from '@mui/icons-material/People';
-import HomeIcon from '@mui/icons-material/Home';
-
+import ArticleIcon from '@mui/icons-material/Article';
 import {
   Routes,
   Route
 } from "react-router-dom";
 import Login from '../Pages/Login/Login';
 import Landing from '../Pages/Home/Landing';
-import Home from '../Pages/Home/Home';
 import Protected from '../Utils/Protected';
 import PacientList from '../Pages/Pacients/PacientList';
+import MedicalAppointment from '../Pages/MedicalAppointment/MedicalAppointment';
 
 const doctorRoutes = [
   {
-    "name": "Home",
-    "link": "/home",
-    "icon": <HomeIcon />,
-    "component": <Home />
+    "name": "Consultas",
+    "link": "/consultas",
+    "icon": <ArticleIcon />,
+    "component": <MedicalAppointment />
   },
   {
     "name": "Pacientes",
