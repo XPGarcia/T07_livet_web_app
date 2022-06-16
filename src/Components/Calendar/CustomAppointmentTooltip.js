@@ -7,6 +7,7 @@ import { pickColor } from '../../Utils/Specialties';
 import { formatDate, formatTime } from '../../Utils/Dates';
 
 import classes from './CustomAppointmentTooltip.module.css';
+import CustomButton from '../../UI/CustomButton/CustomButton';
 
 
 function TooltipContent({ appointmentData, ...props }) {
@@ -43,6 +44,9 @@ function TooltipContent({ appointmentData, ...props }) {
           <span>{`${formatTime(appointmentData.startDate)} - ${formatTime(appointmentData.startDate)}`}</span>
         </Grid>
       </Grid>
+      <Grid container className={classes.container} sx={{ justifyContent: "center" }}>
+        <CustomButton color={pickColor(appointmentData.code)}>Tomar datos</CustomButton>
+      </Grid>
     </div>
   );
 }
@@ -51,7 +55,6 @@ function CustomAppointmentTooltip(props) {
   return (
     <AppointmentTooltip
       contentComponent={TooltipContent}
-      showOpenButton
       showCloseButton
       showDeleteButton
     />

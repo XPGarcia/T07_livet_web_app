@@ -1,6 +1,29 @@
 import { CognitoUser, AuthenticationDetails } from 'amazon-cognito-identity-js';
 import { sessionService } from 'redux-react-session';
 import UserPool from './UserPool';
+import Roles from '../Utils/Roles';
+import jwt_decode from "jwt-decode";
+
+function parseToken () {
+  const session = JSON.parse(localStorage.getItem("redux-react-session/USER-SESSION"));
+  let token;
+  try {
+    token = jwt_decode(session['token']);
+  } catch (e) {
+    console.log(e);
+  }
+  return token;
+};
+
+const hasRole = (role) => {
+  const token = parseToken();
+  const roles = token['cognito:groups'];
+  return roles.includes(role);
+}
+
+const getUserField = (field) => {
+  return parseToken()[field];
+};
 
 function checkTimeout(refreshDate) {
   const hours = 12;
@@ -31,13 +54,11 @@ function authenticate(user, authDetails) {
   return new Promise((resolve, reject) => {
     user.authenticateUser(authDetails, {
       onSuccess: async (data) => {
-        const accessToken = data.getAccessToken().getJwtToken();
+        const accessToken = data.getIdToken().getJwtToken();
         const params = data.getIdToken().decodePayload();
         await sessionService.saveSession({
           refreshDate: (new Date()).getTime(),
-          token: accessToken,
-          name: params['name'],
-          role: params['cognito:groups'][0]
+          token: accessToken
         });
         resolve(true);
       },
@@ -78,4 +99,4 @@ function logout() {
   });
 }
 
-export { checkSession, checkTimeout, login, logout }
+export { checkSession, checkTimeout, login, logout, hasRole }

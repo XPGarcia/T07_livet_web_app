@@ -20,8 +20,36 @@ import ProfilePic from '../../Components/ProfilePic/ProfilePic';
 import CustomLink from '../../Utils/CustomLink';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 import { logout } from '../../Store/auth';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#256FB5"
+    },
+    secondary: {
+      main: "#26B1FF"
+    },
+    white: {
+      main: "#FFFFFF"
+    }
+  },
+  components: {
+    MuiDrawer: {
+      styleOverrides: {
+        paper: {
+          background: "#26B1FF",
+          borderRight: "none"
+        },
+        icon: {
+          color: "#FFFFFF"
+        }
+      }
+    }
+  }
+});
 
 function CustomSidebar(props) {
   const navigate = useNavigate();
@@ -67,7 +95,7 @@ function CustomSidebar(props) {
   const container = window !== undefined ? () => window.document.body : undefined;
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <AppBar
         position="fixed"
         sx={{
@@ -138,7 +166,7 @@ function CustomSidebar(props) {
           </Box>
         </Drawer>
       </Box>
-    </div>
+    </ThemeProvider>
   );
 
 };
