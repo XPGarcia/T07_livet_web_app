@@ -1,10 +1,11 @@
 import React from "react";
 import SidebarLayout from "../../Layouts/SidebarLayout";
+import CustomTabPanel from "../../UI/CustomTabPanel/CustomTabPanel";
 
 function MedicalAppointment() {
   return (
     <SidebarLayout>
-      <h2>Hola, soy la página de las CONSULTAS MÉDICAS</h2>
+      <CustomTabPanel />
     </SidebarLayout>
   );
 }

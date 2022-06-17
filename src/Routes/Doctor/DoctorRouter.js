@@ -4,6 +4,7 @@ import Login from "../../Pages/Login/Login";
 import Landing from "../../Pages/Home/Landing";
 import Protected from "../../Utils/Protected";
 import PacientList from "../../Pages/Pacients/PacientList";
+import MedicalAppointmentList from "../../Pages/MedicalAppointment/MedicalAppointmentList";
 import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
 
 function DoctorRouter() {
@@ -13,6 +14,14 @@ function DoctorRouter() {
       <Route path="/login" element={<Login />} />
       <Route
         path="/consultas"
+        element={
+          <Protected>
+            <MedicalAppointmentList />
+          </Protected>
+        }
+      />
+      <Route
+        path="/consultas/:id"
         element={
           <Protected>
             <MedicalAppointment />
