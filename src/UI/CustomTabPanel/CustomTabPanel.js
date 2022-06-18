@@ -26,7 +26,7 @@ function a11yProps(index) {
   };
 }
 
-function CustomTabPanel({ patientDataComponent }) {
+function CustomTabPanel({ patientDataComponent, medicalRecordComponent }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -43,7 +43,7 @@ function CustomTabPanel({ patientDataComponent }) {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        Consulta Médica
+        {medicalRecordComponent}
       </TabPanel>
       <TabPanel value={value} index={1}>
         {patientDataComponent}
