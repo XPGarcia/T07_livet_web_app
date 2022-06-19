@@ -2,6 +2,15 @@ import React from "react";
 import SidebarLayout from "../../Layouts/SidebarLayout";
 import CustomTabPanel from "../../UI/CustomTabPanel/CustomTabPanel";
 import PatientGeneralData from "../../Components/PatientGeneralData/PatientGeneralData";
+import MedicalRecord from "./MedicalRecord";
+import Preparation from "./MedicalRecordComponents/Preparation";
+import ConsultationReasons from "./MedicalRecordComponents/ConsultationReasons";
+import BackgrounData from "./MedicalRecordComponents/BackgroundData";
+import CurrentProblem from "./MedicalRecordComponents/CurrentProblem";
+import PhysicalExam from "./MedicalRecordComponents/PhysicalExam";
+import OrganSystemReview from "./MedicalRecordComponents/OrganSystemReview";
+import Diagnostic from "./MedicalRecordComponents/Diagnostic";
+import Treatment from "./MedicalRecordComponents/Treatment";
 
 const patientData = {
   name: "Xavier García",
@@ -24,7 +33,19 @@ function MedicalAppointment() {
         patientDataComponent={
           <PatientGeneralData
             patient={patientData}
-            style={{ margin: "auto", maxWidth: "1024px" }}
+            style={{ margin: "auto", maxWidth: "1024px", marginTop: "24px" }}
+          />
+        }
+        medicalRecordComponent={
+          <MedicalRecord
+            preparationComponent={<Preparation />}
+            consultationReasonsComponent={<ConsultationReasons />}
+            backgroundDataComponent={<BackgrounData />}
+            currentProblemComponent={<CurrentProblem />}
+            physicalExamComponent={<PhysicalExam />}
+            organSystemReviewComponent={<OrganSystemReview />}
+            diagnosticComponent={<Diagnostic />}
+            treatmentComponent={<Treatment />}
           />
         }
       />

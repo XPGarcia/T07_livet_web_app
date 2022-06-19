@@ -16,6 +16,9 @@ function App() {
       },
       white: {
         main: "#FFFFFF"
+      },
+      neutral: {
+        main: "#64748B"
       }
     },
     components: {

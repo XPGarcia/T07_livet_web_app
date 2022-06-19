@@ -1,0 +1,89 @@
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Box, Button, Divider, TextField } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import CloseIcon from "@mui/icons-material/Close";
+import { diagnosticActions } from "../../../Store/MedicalRecord/diagnostic";
+import SingleList from "../../../Components/SingleList/SingleList";
+
+function Diagnostic() {
+  const dispatch = useDispatch();
+  const diagnostic = useSelector((state) => state.diagnostic);
+
+  const setNewDiagnosticHandler = (text) => {
+    dispatch(diagnosticActions.setNewDiagnostic(text));
+  };
+
+  const setAddingHandler = (adding) => {
+    dispatch(diagnosticActions.setAdding(adding));
+  };
+
+  const addDiagnosticHandler = (event) => {
+    if (event.key !== "Enter" || event.target.value.trim() === "") return;
+    const temp = [...diagnostic.data];
+    temp.push({
+      id: Math.floor(Math.random() * 100) + 1,
+      name: event.target.value.trim()
+    });
+    dispatch(diagnosticActions.setDiagnostics(temp));
+    setNewDiagnosticHandler("");
+  };
+
+  const deleteDiagnosticHandler = (event, payload) => {
+    event.preventDefault();
+    const temp = diagnostic.data.filter((data) => data.id !== payload.id);
+    dispatch(diagnosticActions.setDiagnostics(temp));
+  };
+
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}
+      >
+        <h4>Diagnóstico</h4>
+        {!diagnostic.adding && (
+          <Button
+            variant="outlined"
+            size="small"
+            sx={{ height: "fit-content" }}
+            startIcon={<AddIcon />}
+            onClick={() => setAddingHandler(true)}
+          >
+            Diagnóstico nuevo
+          </Button>
+        )}
+        {diagnostic.adding && (
+          <Button
+            variant="outlined"
+            size="small"
+            color="error"
+            sx={{ height: "fit-content" }}
+            startIcon={<CloseIcon />}
+            onClick={() => setAddingHandler(false)}
+          >
+            Detener
+          </Button>
+        )}
+      </Box>
+      <Divider />
+      <SingleList data={diagnostic.data} onDelete={deleteDiagnosticHandler} />
+      <div style={{ height: "16px" }} />
+      {diagnostic.adding && (
+        <TextField
+          id="diagnosticInput"
+          label="Nuevo Diagnóstico"
+          fullWidth
+          value={diagnostic.newDiagnostic}
+          onChange={(event) => setNewDiagnosticHandler(event.target.value)}
+          onKeyDown={addDiagnosticHandler}
+        />
+      )}
+    </Box>
+  );
+}
+
+export default Diagnostic;
