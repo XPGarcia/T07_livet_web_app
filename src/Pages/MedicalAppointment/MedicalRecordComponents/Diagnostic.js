@@ -4,6 +4,7 @@ import { Box, Button, Divider, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { diagnosticActions } from "../../../Store/MedicalRecord/diagnostic";
+import SingleList from "../../../Components/SingleList/SingleList";
 
 function Diagnostic() {
   const dispatch = useDispatch();
@@ -20,9 +21,18 @@ function Diagnostic() {
   const addDiagnosticHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
     const temp = [...diagnostic.data];
-    temp.push(event.target.value.trim());
+    temp.push({
+      id: Math.floor(Math.random() * 100) + 1,
+      name: event.target.value.trim()
+    });
     dispatch(diagnosticActions.setDiagnostics(temp));
     setNewDiagnosticHandler("");
+  };
+
+  const deleteDiagnosticHandler = (event, payload) => {
+    event.preventDefault();
+    const temp = diagnostic.data.filter((data) => data.id !== payload.id);
+    dispatch(diagnosticActions.setDiagnostics(temp));
   };
 
   return (
@@ -60,16 +70,12 @@ function Diagnostic() {
         )}
       </Box>
       <Divider />
-      <ul>
-        {diagnostic.data.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+      <SingleList data={diagnostic.data} onDelete={deleteDiagnosticHandler} />
+      <div style={{ height: "16px" }} />
       {diagnostic.adding && (
         <TextField
           id="diagnosticInput"
-          label="Nuevo Tratamiento"
-          size="small"
+          label="Nuevo Diagnóstico"
           fullWidth
           value={diagnostic.newDiagnostic}
           onChange={(event) => setNewDiagnosticHandler(event.target.value)}

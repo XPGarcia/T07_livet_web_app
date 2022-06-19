@@ -10,7 +10,7 @@ const treatmentSLice = createSlice({
   initialState: initialTreatment,
   reducers: {
     setTreatment(state, action) {
-      state.data[action.payload.id] = action.payload.treatments;
+      state.data[action.payload.diagnosticId] = action.payload.treatments;
     },
     setRecomendation(state, action) {
       state.recomendation = action.payload;

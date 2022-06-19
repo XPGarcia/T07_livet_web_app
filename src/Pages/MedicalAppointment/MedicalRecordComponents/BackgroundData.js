@@ -4,6 +4,7 @@ import { Box, Button, Divider, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { backgroundDataActions } from "../../../Store/MedicalRecord/backgroundData";
+import SingleList from "../../../Components/SingleList/SingleList";
 
 function BackgrounData() {
   const dispatch = useDispatch();
@@ -18,17 +19,39 @@ function BackgrounData() {
   const addPersonalBackgroundHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
     const temp = [...backgroundData.personalBackgrounds];
-    temp.push(event.target.value);
+    temp.push({
+      id: Math.floor(Math.random() * 100) + 1,
+      name: event.target.value.trim()
+    });
     dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
     setNewPersonalBackground("");
+  };
+
+  const deletePersonalBackgroundHandler = (event, payload) => {
+    event.preventDefault();
+    const temp = backgroundData.personalBackgrounds.filter(
+      (data) => data.id !== payload.id
+    );
+    dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
   };
 
   const addFamilyBackgroundHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
     const temp = [...backgroundData.familyBackgrounds];
-    temp.push(event.target.value);
+    temp.push({
+      id: Math.floor(Math.random() * 100) + 1,
+      name: event.target.value.trim()
+    });
     dispatch(backgroundDataActions.setFamilyBackgrounds(temp));
     setNewFamilyBackground("");
+  };
+
+  const deleteFamilyBackgroundHandler = (event, payload) => {
+    event.preventDefault();
+    const temp = backgroundData.familyBackgrounds.filter(
+      (data) => data.id !== payload.id
+    );
+    dispatch(backgroundDataActions.setFamilyBackgrounds(temp));
   };
 
   return (
@@ -66,16 +89,15 @@ function BackgrounData() {
         )}
       </Box>
       <Divider />
-      <ul>
-        {backgroundData.personalBackgrounds.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+      <SingleList
+        data={backgroundData.personalBackgrounds}
+        onDelete={deletePersonalBackgroundHandler}
+      />
+      <div style={{ height: "16px" }} />
       {addPersonalBackground && (
         <TextField
           id="personalBackgroundInput"
           label="Nuevo Antecendente Personal"
-          size="small"
           fullWidth
           value={newPersonalBackground}
           onChange={(event) => setNewPersonalBackground(event.target.value)}
@@ -118,16 +140,15 @@ function BackgrounData() {
         )}
       </Box>
       <Divider />
-      <ul>
-        {backgroundData.familyBackgrounds.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+      <SingleList
+        data={backgroundData.familyBackgrounds}
+        onDelete={deleteFamilyBackgroundHandler}
+      />
+      <div style={{ height: "16px" }} />
       {addFamilyBackground && (
         <TextField
           id="familyBackgroundInput"
           label="Nuevo Antecendente Familiar"
-          size="small"
           fullWidth
           value={newFamilyBackground}
           onChange={(event) => setNewFamilyBackground(event.target.value)}
