@@ -8,6 +8,9 @@ import ConsultationReasons from "./MedicalRecordComponents/ConsultationReasons";
 import BackgrounData from "./MedicalRecordComponents/BackgroundData";
 import CurrentProblem from "./MedicalRecordComponents/CurrentProblem";
 import PhysicalExam from "./MedicalRecordComponents/PhysicalExam";
+import OrganSystemReview from "./MedicalRecordComponents/OrganSystemReview";
+import Diagnostic from "./MedicalRecordComponents/Diagnostic";
+import Treatment from "./MedicalRecordComponents/Treatment";
 
 const patientData = {
   name: "Xavier García",
@@ -30,7 +33,7 @@ function MedicalAppointment() {
         patientDataComponent={
           <PatientGeneralData
             patient={patientData}
-            style={{ margin: "auto", maxWidth: "1024px" }}
+            style={{ margin: "auto", maxWidth: "1024px", marginTop: "24px" }}
           />
         }
         medicalRecordComponent={
@@ -40,6 +43,9 @@ function MedicalAppointment() {
             backgroundDataComponent={<BackgrounData />}
             currentProblemComponent={<CurrentProblem />}
             physicalExamComponent={<PhysicalExam />}
+            organSystemReviewComponent={<OrganSystemReview />}
+            diagnosticComponent={<Diagnostic />}
+            treatmentComponent={<Treatment />}
           />
         }
       />

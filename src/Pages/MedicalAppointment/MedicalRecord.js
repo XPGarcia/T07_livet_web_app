@@ -32,7 +32,10 @@ function MedicalRecord({
   consultationReasonsComponent,
   backgroundDataComponent,
   currentProblemComponent,
-  physicalExamComponent
+  physicalExamComponent,
+  organSystemReviewComponent,
+  diagnosticComponent,
+  treatmentComponent
 }) {
   const [value, setValue] = React.useState(0);
 
@@ -46,7 +49,8 @@ function MedicalRecord({
         flexGrow: 1,
         bgcolor: "background.paper",
         display: "flex",
-        height: "100%"
+        height: "100%",
+        padding: "16px 0"
       }}
     >
       <Tabs
@@ -56,12 +60,16 @@ function MedicalRecord({
         onChange={handleChange}
         aria-label="report tabs"
         sx={{ borderRight: 1, borderColor: "divider" }}
+        allowScrollButtonsMobile
       >
         <Tab label="Preparación" {...a11yProps(0)} />
         <Tab label="Motivos de Consulta" {...a11yProps(1)} />
         <Tab label="Antecedentes" {...a11yProps(2)} />
         <Tab label="Problema actual" {...a11yProps(3)} />
         <Tab label="Examen Físico" {...a11yProps(4)} />
+        <Tab label="Revisión de Sistemas" {...a11yProps(5)} />
+        <Tab label="Diagnóstico" {...a11yProps(6)} />
+        <Tab label="Tratamiento" {...a11yProps(7)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         {preparationComponent}
@@ -77,6 +85,15 @@ function MedicalRecord({
       </TabPanel>
       <TabPanel value={value} index={4}>
         {physicalExamComponent}
+      </TabPanel>
+      <TabPanel value={value} index={5}>
+        {organSystemReviewComponent}
+      </TabPanel>
+      <TabPanel value={value} index={6}>
+        {diagnosticComponent}
+      </TabPanel>
+      <TabPanel value={value} index={7}>
+        {treatmentComponent}
       </TabPanel>
     </Box>
   );

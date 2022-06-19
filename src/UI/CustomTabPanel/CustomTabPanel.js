@@ -14,7 +14,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box>{children}</Box>}
     </div>
   );
 }
@@ -35,8 +35,21 @@ function CustomTabPanel({ patientDataComponent, medicalRecordComponent }) {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Tabs value={value} onChange={handleChange} aria-label="tabs">
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          borderBottom: 1,
+          borderColor: "divider",
+          width: "100%"
+        }}
+      >
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          aria-label="tabs"
+          allowScrollButtonsMobile
+        >
           <Tab label="Consulta" {...a11yProps(0)} />
           <Tab label="Paciente" {...a11yProps(1)} />
           <Tab label="Historial Médico" {...a11yProps(2)} />

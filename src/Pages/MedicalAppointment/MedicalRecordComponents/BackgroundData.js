@@ -1,41 +1,33 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Divider, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-
-const personalBackgrounds = [
-  "Antecedente personal 1",
-  "Antecedente personal 2 con una descripción muy larga",
-  "Antecedente personal 3 con una descripción muy larga que debería hacer dos líneas en pantalla completa"
-];
-
-const familyBackgrounds = [
-  "Antecedente familiar 1",
-  "Antecedente familiar 2 con una descripción muy larga",
-  "Antecedente familiar 3 con una descripción muy larga que debería hacer dos líneas en pantalla completa"
-];
+import { backgroundDataActions } from "../../../Store/MedicalRecord/backgroundData";
 
 function BackgrounData() {
+  const dispatch = useDispatch();
+  const backgroundData = useSelector((state) => state.backgroundData);
+
   const [addPersonalBackground, setAddPersonalBackground] = useState(false);
   const [addFamilyBackground, setAddFamilyBackground] = useState(false);
-
-  const [personalData, setPersonalData] = useState(personalBackgrounds);
-  const [familyData, setFamilyData] = useState(familyBackgrounds);
 
   const [newPersonalBackground, setNewPersonalBackground] = useState("");
   const [newFamilyBackground, setNewFamilyBackground] = useState("");
 
   const addPersonalBackgroundHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
-    personalBackgrounds.push(event.target.value);
-    setPersonalData(personalBackgrounds);
+    const temp = [...backgroundData.personalBackgrounds];
+    temp.push(event.target.value);
+    dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
     setNewPersonalBackground("");
   };
 
   const addFamilyBackgroundHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
-    familyBackgrounds.push(event.target.value);
-    setFamilyData(familyBackgrounds);
+    const temp = [...backgroundData.familyBackgrounds];
+    temp.push(event.target.value);
+    dispatch(backgroundDataActions.setFamilyBackgrounds(temp));
     setNewFamilyBackground("");
   };
 
@@ -75,7 +67,7 @@ function BackgrounData() {
       </Box>
       <Divider />
       <ul>
-        {personalData.map((item) => (
+        {backgroundData.personalBackgrounds.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>
@@ -127,7 +119,7 @@ function BackgrounData() {
       </Box>
       <Divider />
       <ul>
-        {familyData.map((item) => (
+        {backgroundData.familyBackgrounds.map((item) => (
           <li key={item}>{item}</li>
         ))}
       </ul>
