@@ -15,9 +15,16 @@ export default function MedicalCenter() {
   function handleChange(event) {
     setSelected(event.target.value);
   }
+  const navigateToCardiologySauces = () => {
+    navigate("/citas/crearCita/centroMedico/doctorSauces");
+  };
+  const navigateToCardiologyDuran = () => {
+    navigate("/citas/crearCita/centroMedico/doctorDuran");
+  };
   const navigateToCrearCita = () => {
     // 👇️ navigate to /crearCita
     navigate("/citas/crearCita");
+    // navigate("/citas/crearCita/centroMedico/cardiologoSauces");
   };
 
   return (
@@ -39,8 +46,8 @@ export default function MedicalCenter() {
           label="Establecimiento"
           onChange={handleChange}
         >
-          <MenuItem>Sauces</MenuItem>
-          <MenuItem>Durán</MenuItem>
+          <MenuItem onClick={navigateToCardiologySauces}>Sauces</MenuItem>
+          <MenuItem onClick={navigateToCardiologyDuran}>Durán</MenuItem>
         </Select>
       </FormControl>
     </SidebarLayout>

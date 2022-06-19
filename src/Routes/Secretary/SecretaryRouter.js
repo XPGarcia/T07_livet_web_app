@@ -6,6 +6,8 @@ import Landing from "../../Pages/Home/Landing";
 import Protected from "../../Utils/Protected";
 import Specialties from "../../Pages/Specialties/Specialties";
 import MedicalCenter from "../../Pages/Specialties/MedicalCenter";
+import CardiologySauces from "../../Pages/Specialties/Cardiology/CardiologySauces";
+import CardiologyDuran from "../../Pages/Specialties/Cardiology/CardiologyDuran";
 
 import Schedule from "../../Pages/Schedule/Schedule";
 import PacientList from "../../Pages/Pacients/PacientList";
@@ -36,6 +38,22 @@ function SecretaryRouter() {
         element={
           <Protected>
             <MedicalCenter />
+          </Protected>
+        }
+      />
+      <Route
+        path="/citas/crearCita/centroMedico/doctorSauces"
+        element={
+          <Protected>
+            <CardiologySauces />
+          </Protected>
+        }
+      />
+      <Route
+        path="/citas/crearCita/centroMedico/doctorDuran"
+        element={
+          <Protected>
+            <CardiologyDuran />
           </Protected>
         }
       />
