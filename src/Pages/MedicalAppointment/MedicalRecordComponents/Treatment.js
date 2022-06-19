@@ -1,26 +1,34 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { treatmentActions } from "../../../Store/MedicalRecord/treatment";
-import SingleList from "../../../Components/SingleList/SingleList";
+import TreatmentList from "../../../Components/TreatmentList/TreatmentList";
 
 function TreatmentBlock({ diagnostic }) {
   const dispatch = useDispatch();
   const treatment = useSelector((state) => state.treatment);
+
+  const initialTreatmentState = {
+    medicine: "",
+    presentation: "",
+    quantity: "",
+    indications: ""
+  };
+
   const [addTreatment, setAddTreatment] = useState(false);
-  const [newTreatment, setNewTreatment] = useState("");
+  const [newTreatment, setNewTreatment] = useState(initialTreatmentState);
 
   const addTreatmentHandler = (event) => {
-    if (event.key !== "Enter" || event.target.value.trim() === "") return;
+    event.preventDefault();
     const temp = treatment.data[diagnostic.id]
       ? [...treatment.data[diagnostic.id]]
       : [];
     temp.push({
       id: Math.floor(Math.random() * 100) + 1,
       diagnosticId: diagnostic.id,
-      name: event.target.value.trim()
+      treatmentFields: newTreatment
     });
     dispatch(
       treatmentActions.setTreatment({
@@ -28,7 +36,7 @@ function TreatmentBlock({ diagnostic }) {
         treatments: temp
       })
     );
-    setNewTreatment("");
+    setNewTreatment(initialTreatmentState);
   };
 
   const deleteTreatmentHandler = (event, payload) => {
@@ -79,23 +87,75 @@ function TreatmentBlock({ diagnostic }) {
           </Button>
         )}
       </Box>
-      <SingleList
+      <TreatmentList
         data={treatment.data[diagnostic.id] ?? []}
-        dependencyId={diagnostic.id}
         onDelete={deleteTreatmentHandler}
       />
       <div style={{ height: "16px" }} />
       {addTreatment && (
-        <div style={{ marginBottom: "16px" }}>
-          <TextField
-            id="treatmentInput"
-            label="Nuevo Tratamiento"
-            fullWidth
-            value={newTreatment}
-            onChange={(event) => setNewTreatment(event.target.value)}
-            onKeyDown={addTreatmentHandler}
-          />
-        </div>
+        <Grid container style={{ marginBottom: "16px" }}>
+          <Grid item xs={12} md={4} p={1}>
+            <TextField
+              id="medicineInput"
+              label="Medicamento"
+              fullWidth
+              value={newTreatment.medicine}
+              onChange={(event) =>
+                setNewTreatment({
+                  ...newTreatment,
+                  medicine: event.target.value
+                })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={4} p={1}>
+            <TextField
+              id="presentationInput"
+              label="Presentación/Concentración"
+              fullWidth
+              value={newTreatment.presentation}
+              onChange={(event) =>
+                setNewTreatment({
+                  ...newTreatment,
+                  presentation: event.target.value
+                })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} md={4} p={1}>
+            <TextField
+              id="quantityInput"
+              label="Cantidad"
+              fullWidth
+              value={newTreatment.quantity}
+              onChange={(event) =>
+                setNewTreatment({
+                  ...newTreatment,
+                  quantity: event.target.value
+                })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} p={1}>
+            <TextField
+              id="indicationsInput"
+              label="Indicaciones"
+              fullWidth
+              value={newTreatment.indications}
+              onChange={(event) =>
+                setNewTreatment({
+                  ...newTreatment,
+                  indications: event.target.value
+                })
+              }
+            />
+          </Grid>
+          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
+            <Button variant="contained" onClick={addTreatmentHandler}>
+              Guardar
+            </Button>
+          </Grid>
+        </Grid>
       )}
     </Box>
   );
@@ -108,7 +168,7 @@ function Treatment() {
 
   const setRecomendationHandler = (event) => {
     event.preventDefault();
-    dispatch(treatmentActions.setRecomendation(event.target.value.trim()));
+    dispatch(treatmentActions.setRecomendation(event.target.value));
   };
 
   return (
