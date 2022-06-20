@@ -5,7 +5,7 @@ import { preparationActions } from "../../../Store/MedicalRecord/preparation";
 
 function PreparationTextField({ id, label, value, unitLabel, changeHandler }) {
   return (
-    <Grid item p={1} xs={12} lg={6}>
+    <Grid item p={1} xs={12} lg={4}>
       <TextField
         id={id}
         label={label}

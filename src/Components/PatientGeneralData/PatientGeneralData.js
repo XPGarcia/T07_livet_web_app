@@ -5,13 +5,13 @@ import LabeledData from "../LabeledData/LabeledData";
 function PatientGeneralData({ patient, style }) {
   return (
     <Card variant="outlined" style={style}>
-      <CardContent>
+      <CardContent sx={{ padding: { xs: "24px 10px", md: "24px 36px" } }}>
         <Grid container>
           <Grid item xs={12} sx={{ textAlign: "center" }}>
             <h4>Datos Generales del Paciente</h4>
           </Grid>
-          <Grid item xs={6}>
-            <Box pl={3}>
+          <Grid item xs={12} md={6}>
+            <Box>
               <LabeledData label="Nombre" data={patient.name} />
               <LabeledData label="Cédula" data={patient.ssn} />
               <LabeledData
@@ -22,8 +22,8 @@ function PatientGeneralData({ patient, style }) {
               <LabeledData label="Estado Civil" data={patient.civilStatus} />
             </Box>
           </Grid>
-          <Grid item xs={6}>
-            <Box pr={3}>
+          <Grid item xs={12} md={6}>
+            <Box>
               <LabeledData label="Email" data={patient.email} />
               <LabeledData label="Teléfono" data={patient.cellphone} />
               <LabeledData label="Provincia" data={patient.state} />

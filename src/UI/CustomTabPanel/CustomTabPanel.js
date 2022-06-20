@@ -46,9 +46,10 @@ function CustomTabPanel({ patientDataComponent, medicalRecordComponent }) {
       >
         <Tabs
           value={value}
+          variant="scrollable"
+          scrollButtons="auto"
           onChange={handleChange}
           aria-label="tabs"
-          allowScrollButtonsMobile
         >
           <Tab label="Consulta" {...a11yProps(0)} />
           <Tab label="Paciente" {...a11yProps(1)} />

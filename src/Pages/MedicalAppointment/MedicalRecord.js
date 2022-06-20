@@ -1,4 +1,6 @@
 import React from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -15,7 +17,7 @@ function TabPanel(props) {
       {...other}
       style={{ width: "100%" }}
     >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+      {value === index && <Box sx={{ p: { xs: 1, sm: 3 } }}>{children}</Box>}
     </div>
   );
 }
@@ -37,6 +39,9 @@ function MedicalRecord({
   diagnosticComponent,
   treatmentComponent
 }) {
+  const theme = useTheme();
+  const isDesktopView = useMediaQuery(theme.breakpoints.up("md"));
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -48,19 +53,25 @@ function MedicalRecord({
       sx={{
         flexGrow: 1,
         bgcolor: "background.paper",
-        display: "flex",
+        display: { md: "flex" },
         height: "100%",
-        padding: "16px 0"
+        padding: "16px 0",
+        width: "100%",
+        maxWidth: "100%"
       }}
     >
       <Tabs
-        orientation="vertical"
+        orientation={isDesktopView ? "vertical" : "horizontal"}
         variant="scrollable"
+        scrollButtons="auto"
         value={value}
         onChange={handleChange}
         aria-label="report tabs"
-        sx={{ borderRight: 1, borderColor: "divider" }}
-        allowScrollButtonsMobile
+        sx={{
+          borderRight: isDesktopView ? 1 : 0,
+          borderBottom: isDesktopView ? 0 : 1,
+          borderColor: "divider"
+        }}
       >
         <Tab label="Preparación" {...a11yProps(0)} />
         <Tab label="Motivos de Consulta" {...a11yProps(1)} />

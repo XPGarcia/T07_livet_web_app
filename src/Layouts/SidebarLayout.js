@@ -25,11 +25,12 @@ function SidebarLayout(props) {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` }
+          padding: { xs: "24px 12px", sm: "24px" },
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          maxWidth: "100%"
         }}
       >
-        <Toolbar sx={{ display: { sm: "none" } }} />
+        <Toolbar sx={{ display: { md: "none" } }} />
         {children}
       </Box>
     </Box>

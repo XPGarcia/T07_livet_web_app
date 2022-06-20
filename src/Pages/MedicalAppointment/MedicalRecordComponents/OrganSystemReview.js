@@ -98,6 +98,14 @@ function OrganSystemReview() {
         onDescriptionChange={setSystemDescriptionHandler}
       />
       <SystemButton
+        title="Digestivo"
+        system="digestivo"
+        active={organSystemReview.digestivo.active}
+        value={organSystemReview.digestivo.description}
+        onSystemSelected={selectSystemHandler}
+        onDescriptionChange={setSystemDescriptionHandler}
+      />
+      <SystemButton
         title="Tegumentario"
         system="tegumentario"
         active={organSystemReview.tegumentario.active}

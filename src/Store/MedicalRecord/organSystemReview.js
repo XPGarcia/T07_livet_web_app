@@ -13,6 +13,10 @@ const initialOrganSystemReview = {
     active: false,
     description: ""
   },
+  digestivo: {
+    active: false,
+    description: ""
+  },
   tegumentario: {
     active: false,
     description: ""
