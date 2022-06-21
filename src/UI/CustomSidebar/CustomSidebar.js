@@ -25,17 +25,6 @@ import ProfilePic from "../../Components/ProfilePic/ProfilePic";
 import { logout } from "../../Store/auth";
 
 const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#256FB5"
-    },
-    secondary: {
-      main: "#26B1FF"
-    },
-    white: {
-      main: "#FFFFFF"
-    }
-  },
   components: {
     MuiDrawer: {
       styleOverrides: {

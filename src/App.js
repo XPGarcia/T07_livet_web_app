@@ -20,19 +20,6 @@ function App() {
       neutral: {
         main: "#64748B"
       }
-    },
-    components: {
-      MuiDrawer: {
-        styleOverrides: {
-          paper: {
-            background: "#26B1FF",
-            borderRight: "none"
-          },
-          icon: {
-            color: "#FFFFFF"
-          }
-        }
-      }
     }
   });
 
