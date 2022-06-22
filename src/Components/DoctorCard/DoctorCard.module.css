@@ -1,0 +1,18 @@
+.name {
+  text-transform: uppercase;
+  margin: 5px 0;
+  font-weight: 700 !important;
+}
+
+.specialty {
+  text-transform: capitalize;
+  margin: 0;
+  font-weight: 600 !important;
+}
+
+.medicalCenter {
+  display: block;
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 600 !important;
+}

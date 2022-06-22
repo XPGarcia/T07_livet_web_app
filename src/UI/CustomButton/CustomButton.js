@@ -2,7 +2,7 @@ import React from "react";
 import { Button, createTheme, ThemeProvider } from "@mui/material";
 
 function CustomButton(props) {
-  const { color, contrastText, children } = props;
+  const { color, contrastText, children, ...restProps } = props;
   const theme = createTheme({
     palette: {
       primary: {
@@ -14,7 +14,9 @@ function CustomButton(props) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Button variant="contained">{children}</Button>
+      <Button {...restProps} variant="contained">
+        {children}
+      </Button>
     </ThemeProvider>
   );
 }

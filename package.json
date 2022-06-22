@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@date-io/date-fns": "^2.14.0",
     "@devexpress/dx-react-core": "^3.0.3",
     "@devexpress/dx-react-scheduler": "^3.0.3",
     "@devexpress/dx-react-scheduler-material-ui": "^3.0.3",
@@ -15,6 +16,7 @@
     "@mui/x-data-grid": "^5.12.1",
     "@mui/x-data-grid-generator": "^5.12.1",
     "@mui/x-data-grid-pro": "^5.12.1",
+    "@mui/x-date-pickers": "^5.0.0-alpha.6",
     "@reduxjs/toolkit": "^1.8.2",
     "@tanstack/react-table": "^0.0.1-alpha.0",
     "@testing-library/jest-dom": "^5.16.4",
@@ -26,6 +28,7 @@
     "babel-eslint": "^10.1.0",
     "bootstrap": "^4.6.1",
     "bootstrap-table": "^1.20.2",
+    "date-fns": "^2.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jwt-decode": "^3.1.2",

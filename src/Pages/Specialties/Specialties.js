@@ -1,31 +1,32 @@
 import React from "react";
-import { Button } from "@mui/material";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import SidebarLayout from "../../Layouts/SidebarLayout";
+import SpecialtyList, { pickColor } from "../../Utils/Specialties";
+import CustomButton from "../../UI/CustomButton/CustomButton";
+import { appointmentActions } from "../../Store/appointment";
 
 function Specialties() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = { specialty: "" };
 
-  const navigateToCentroMedico = () => {
+  const navigateToCentroMedico = (code) => {
+    dispatch(appointmentActions.setSpecialty(code));
+    params.specialty = code;
     // 👇️ navigate to /crearCita
-    navigate("/citas/crearCita/centroMedico");
-  };
-  const navigateToCitas = () => {
-    // 👇️ navigate to /crearCita
-    navigate("/citas");
+    navigate({
+      pathname: "/citas/crearCita/centroMedico",
+      search: `?${createSearchParams(params)}`
+    });
   };
 
   return (
     <SidebarLayout>
-      <Box m={1} display="flex" alignItems="left">
-        <ArrowBackIosIcon
-          onClick={navigateToCitas}
-          sx={{ cursor: "pointer" }}
-        />
+      <Box sx={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <h2>¿En cuál especialidad desea agendar una cita?</h2>
       </Box>
-      <h2>¿En cuál especialidad desea agendar una cita?</h2>
       <Box
         display="grid"
         gap={2}
@@ -37,46 +38,16 @@ function Specialties() {
           }
         }}
       >
-        <Button
-          variant="contained"
-          className="crearButton"
-          onClick={navigateToCentroMedico}
-          sx={{ color: "White", backgroundColor: "#5CB85C" }}
-        >
-          Medicina General
-        </Button>
-        <Button
-          variant="contained"
-          className="crearButton"
-          onClick={navigateToCentroMedico}
-          sx={{ color: "White", backgroundColor: "#D9534F" }}
-        >
-          Cardiología
-        </Button>
-        <Button
-          variant="contained"
-          className="crearButton"
-          onClick={navigateToCentroMedico}
-          sx={{ color: "White", backgroundColor: "#F0AD4E" }}
-        >
-          Ginecología
-        </Button>
-        <Button
-          variant="contained"
-          className="crearButton"
-          onClick={navigateToCentroMedico}
-          sx={{ color: "White", backgroundColor: "#E26DC9" }}
-        >
-          Pediatría
-        </Button>
-        <Button
-          variant="contained"
-          className="crearButton"
-          onClick={navigateToCentroMedico}
-          sx={{ color: "White", backgroundColor: "#714BC3" }}
-        >
-          Terapia de sueros
-        </Button>
+        {Object.keys(SpecialtyList).map((key) => (
+          <CustomButton
+            key={key}
+            color={pickColor(SpecialtyList[key].code)}
+            className="crearButton"
+            onClick={() => navigateToCentroMedico(key)}
+          >
+            {SpecialtyList[key].name}
+          </CustomButton>
+        ))}
       </Box>
     </SidebarLayout>
   );

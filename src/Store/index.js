@@ -9,11 +9,13 @@ import physicalExamSlice from "./MedicalRecord/physicalExamn";
 import organSystemReviewSlice from "./MedicalRecord/organSystemReview";
 import diagnosticSlice from "./MedicalRecord/diagnostic";
 import treatmentSlice from "./MedicalRecord/treatment";
+import appointmentSlice from "./appointment";
 
 const store = configureStore({
   reducer: {
     sessionReducer,
     calendar: calendarSlice,
+    appointment: appointmentSlice,
     preparation: preparationSlice,
     consultationReasons: consultationReasonsSLice,
     backgroundData: backgroundDataSlice,
