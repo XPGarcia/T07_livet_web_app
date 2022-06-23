@@ -4,6 +4,8 @@ import { useTheme } from "@mui/material/styles";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { hasRole } from "../../Store/auth";
+import Roles from "../../Utils/Roles";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,6 +29,12 @@ function a11yProps(index) {
     id: `vertical-tab-${index}`,
     "aria-controls": `vertical-tabpanel-${index}`
   };
+}
+
+function OnlyDoctorTab({ ...props }) {
+  if (hasRole(Roles.DOCTOR)) {
+    return <Tab {...props} />;
+  }
 }
 
 function MedicalRecord({
@@ -74,13 +82,13 @@ function MedicalRecord({
         }}
       >
         <Tab label="Preparación" {...a11yProps(0)} />
-        <Tab label="Motivos de Consulta" {...a11yProps(1)} />
-        <Tab label="Antecedentes" {...a11yProps(2)} />
-        <Tab label="Problema actual" {...a11yProps(3)} />
-        <Tab label="Examen Físico" {...a11yProps(4)} />
-        <Tab label="Revisión de Sistemas" {...a11yProps(5)} />
-        <Tab label="Diagnóstico" {...a11yProps(6)} />
-        <Tab label="Tratamiento" {...a11yProps(7)} />
+        <OnlyDoctorTab label="Motivo de Consulta" {...a11yProps(1)} />
+        <OnlyDoctorTab label="Antecedentes" {...a11yProps(2)} />
+        <OnlyDoctorTab label="Problema actual" {...a11yProps(3)} />
+        <OnlyDoctorTab label="Examen Físico" {...a11yProps(4)} />
+        <OnlyDoctorTab label="Revisión de Sistemas" {...a11yProps(5)} />
+        <OnlyDoctorTab label="Diagnóstico" {...a11yProps(6)} />
+        <OnlyDoctorTab label="Tratamiento" {...a11yProps(7)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         {preparationComponent}

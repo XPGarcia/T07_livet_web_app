@@ -1,7 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Divider, Grid, InputAdornment, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  Grid,
+  InputAdornment,
+  TextField
+} from "@mui/material";
 import { preparationActions } from "../../../Store/MedicalRecord/preparation";
+import { hasRole } from "../../../Store/auth";
+import Roles from "../../../Utils/Roles";
 
 function PreparationTextField({ id, label, value, unitLabel, changeHandler }) {
   return (
@@ -103,6 +112,20 @@ function Preparation() {
           changeHandler={setWeight}
         />
       </Grid>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          margin: 1,
+          paddingTop: 3
+        }}
+      >
+        {hasRole(Roles.SECRETARY) && (
+          <Button color="primary" variant="contained">
+            Guardar
+          </Button>
+        )}
+      </Box>
     </Box>
   );
 }

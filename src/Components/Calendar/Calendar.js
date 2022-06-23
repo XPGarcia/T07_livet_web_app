@@ -25,8 +25,8 @@ const schedulerData = [
     id: 1,
     patient: "Xavier García",
     doctor: "Doctor Luis",
-    startDate: "2022-06-16T09:30",
-    endDate: "2022-06-16T10:00",
+    startDate: "2022-06-23T09:30",
+    endDate: "2022-06-23T10:00",
     title: "Cardiología",
     code: "cardiology"
   },
@@ -34,8 +34,8 @@ const schedulerData = [
     id: 2,
     patient: "Xavier García",
     doctor: "Doctor Luis",
-    startDate: "2022-06-16T09:30",
-    endDate: "2022-06-16T10:00",
+    startDate: "2022-06-23T09:30",
+    endDate: "2022-06-23T10:00",
     title: "Pediatría",
     code: "pediatrics"
   },
@@ -43,8 +43,8 @@ const schedulerData = [
     id: 3,
     patient: "Xavier García",
     doctor: "Doctor Luis",
-    startDate: "2022-06-17T12:00",
-    endDate: "2022-06-17T12:30",
+    startDate: "2022-06-24T12:00",
+    endDate: "2022-06-24T12:30",
     title: "Medicina General",
     code: "general_medicine"
   },
@@ -52,8 +52,8 @@ const schedulerData = [
     id: 4,
     patient: "Xavier García",
     doctor: "Doctor Luis",
-    startDate: "2022-06-15T14:30",
-    endDate: "2022-06-14T15:00",
+    startDate: "2022-06-25T14:30",
+    endDate: "2022-06-25T15:00",
     title: "Pediatría",
     code: "pediatrics"
   }

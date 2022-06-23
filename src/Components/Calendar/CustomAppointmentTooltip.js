@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import { Lens } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { useNavigate } from "react-router-dom";
 import { pickSpecialtyColor } from "../../Utils/Specialties";
 import { formatDate, formatTime } from "../../Utils/Dates";
 
@@ -11,6 +12,7 @@ import classes from "./CustomAppointmentTooltip.module.css";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 
 function TooltipContent({ appointmentData }) {
+  const navigate = useNavigate();
   return (
     <div className={classes.content}>
       <Grid
@@ -58,7 +60,10 @@ function TooltipContent({ appointmentData }) {
         className={classes.container}
         sx={{ justifyContent: "center" }}
       >
-        <CustomButton color={pickSpecialtyColor(appointmentData.code)}>
+        <CustomButton
+          color={pickSpecialtyColor(appointmentData.code)}
+          onClick={() => navigate(`/consultas/${appointmentData.id}`)}
+        >
           Tomar datos
         </CustomButton>
       </Grid>

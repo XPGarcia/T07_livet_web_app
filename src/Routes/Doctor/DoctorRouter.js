@@ -4,7 +4,7 @@ import Login from "../../Pages/Login/Login";
 import Landing from "../../Pages/Home/Landing";
 import Protected from "../../Utils/Protected";
 import PacientList from "../../Pages/Pacients/PacientList";
-import MedicalAppointmentList from "../../Pages/MedicalAppointment/MedicalAppointmentList";
+import MedicalAppointmentList from "../../Pages/MedicalAppointList/MedicalAppointmentList";
 import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
 
 function DoctorRouter() {

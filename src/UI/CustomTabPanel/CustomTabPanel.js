@@ -2,6 +2,8 @@ import React from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
+import { hasRole } from "../../Store/auth";
+import Roles from "../../Utils/Roles";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -24,6 +26,12 @@ function a11yProps(index) {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`
   };
+}
+
+function OnlyDoctorTab({ ...props }) {
+  if (hasRole(Roles.DOCTOR)) {
+    return <Tab {...props} />;
+  }
 }
 
 function CustomTabPanel({ patientDataComponent, medicalRecordComponent }) {
@@ -53,7 +61,7 @@ function CustomTabPanel({ patientDataComponent, medicalRecordComponent }) {
         >
           <Tab label="Consulta" {...a11yProps(0)} />
           <Tab label="Paciente" {...a11yProps(1)} />
-          <Tab label="Historial Médico" {...a11yProps(2)} />
+          <OnlyDoctorTab label="Historial Médico" {...a11yProps(2)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>

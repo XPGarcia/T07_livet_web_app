@@ -6,10 +6,10 @@ import Landing from "../../Pages/Home/Landing";
 import Protected from "../../Utils/Protected";
 import Specialties from "../../Pages/Specialties/Specialties";
 import MedicalCenterDoctors from "../../Pages/MedicalCenterDoctors/MedicalCenterDoctors";
-
 import Schedule from "../../Pages/Schedule/Schedule";
 import PacientList from "../../Pages/Pacients/PacientList";
-import CreateAppointment from "../../Pages/Specialties/CreateAppointment";
+import CreateAppointment from "../../Pages/CreateAppointment/CreateAppointment";
+import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
 
 function SecretaryRouter() {
   return (
@@ -53,6 +53,14 @@ function SecretaryRouter() {
         element={
           <Protected>
             <PacientList />
+          </Protected>
+        }
+      />
+      <Route
+        path="/consultas/:id"
+        element={
+          <Protected>
+            <MedicalAppointment />
           </Protected>
         }
       />
