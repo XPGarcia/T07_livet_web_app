@@ -8,6 +8,7 @@ import {
   InputAdornment,
   TextField
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { preparationActions } from "../../../Store/MedicalRecord/preparation";
 import { hasRole } from "../../../Store/auth";
 import Roles from "../../../Utils/Roles";
@@ -35,6 +36,7 @@ function PreparationTextField({ id, label, value, unitLabel, changeHandler }) {
 function Preparation() {
   const dispatch = useDispatch();
   const preparation = useSelector((state) => state.preparation);
+  const navigate = useNavigate();
 
   const setBloodPressure = (bloodPressure) =>
     dispatch(preparationActions.setBloodPressure(bloodPressure));
@@ -121,7 +123,11 @@ function Preparation() {
         }}
       >
         {hasRole(Roles.SECRETARY) && (
-          <Button color="primary" variant="contained">
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => navigate("/citas")}
+          >
             Guardar
           </Button>
         )}
