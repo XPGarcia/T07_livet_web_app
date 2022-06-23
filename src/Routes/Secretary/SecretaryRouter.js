@@ -5,12 +5,11 @@ import Login from "../../Pages/Login/Login";
 import Landing from "../../Pages/Home/Landing";
 import Protected from "../../Utils/Protected";
 import Specialties from "../../Pages/Specialties/Specialties";
-import MedicalCenter from "../../Pages/Specialties/MedicalCenter";
-import CardiologySauces from "../../Pages/Specialties/Cardiology/CardiologySauces";
-import CardiologyDuran from "../../Pages/Specialties/Cardiology/CardiologyDuran";
+import MedicalCenterDoctors from "../../Pages/MedicalCenterDoctors/MedicalCenterDoctors";
 
 import Schedule from "../../Pages/Schedule/Schedule";
 import PacientList from "../../Pages/Pacients/PacientList";
+import CreateAppointment from "../../Pages/Specialties/CreateAppointment";
 
 function SecretaryRouter() {
   return (
@@ -26,7 +25,7 @@ function SecretaryRouter() {
         }
       />
       <Route
-        path="/citas/crearCita"
+        path="/citas/especialidades"
         element={
           <Protected>
             <Specialties />
@@ -34,26 +33,18 @@ function SecretaryRouter() {
         }
       />
       <Route
-        path="/citas/crearCita/centroMedico"
+        path="/citas/especialidades/centros"
         element={
           <Protected>
-            <MedicalCenter />
+            <MedicalCenterDoctors />
           </Protected>
         }
       />
       <Route
-        path="/citas/crearCita/centroMedico/doctorSauces"
+        path="/citas/especialidades/centros/crear"
         element={
           <Protected>
-            <CardiologySauces />
-          </Protected>
-        }
-      />
-      <Route
-        path="/citas/crearCita/centroMedico/doctorDuran"
-        element={
-          <Protected>
-            <CardiologyDuran />
+            <CreateAppointment />
           </Protected>
         }
       />

@@ -12,7 +12,10 @@ const initialAppointmentState = {
     name: ""
   },
   date: new Date(Date.now()).toISOString(),
-  schedule: ""
+  schedule: {
+    id: "",
+    startDate: ""
+  }
 };
 
 const appointmentSlice = createSlice({
@@ -37,7 +40,8 @@ const appointmentSlice = createSlice({
       state.date = action.payload;
     },
     setSchedule(state, action) {
-      state.schedule = action.payload;
+      state.schedule.id = action.payload.id;
+      state.schedule.startDate = action.payload.startDate;
     },
     resetAppointment(state) {
       state.client = {

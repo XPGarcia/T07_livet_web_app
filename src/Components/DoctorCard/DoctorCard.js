@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Box, Card, CardContent, Chip, Typography } from "@mui/material";
 import { formatTime } from "../../Utils/Dates";
-import { getName, pickColor } from "../../Utils/Specialties";
+import { getSpecialtyName, pickSpecialtyColor } from "../../Utils/Specialties";
 
 import classes from "./DoctorCard.module.css";
 
@@ -16,10 +16,10 @@ function DoctorCard({ doctor, medicalCenter, onScheduleClicked }) {
         </Typography>
         <Typography
           className={classes.specialty}
-          color={pickColor(doctor.specialty)}
+          color={pickSpecialtyColor(doctor.specialty)}
           variant="caption"
         >
-          {getName(doctor.specialty)}
+          {getSpecialtyName(doctor.specialty)}
         </Typography>
         <Typography
           className={classes.medicalCenter}
@@ -35,11 +35,10 @@ function DoctorCard({ doctor, medicalCenter, onScheduleClicked }) {
               sx={{ m: 1, minWidth: "85px" }}
               color="primary"
               variant={
-                appointment.schedule === data.id ? "contained" : "outlined"
+                appointment.schedule.id === data.id ? "contained" : "outlined"
               }
               label={formatTime(data.startDate)}
-              data-id={data.id}
-              onClick={() => onScheduleClicked(doctor, data.id)}
+              onClick={() => onScheduleClicked(doctor, data)}
             />
           ))}
         </Box>

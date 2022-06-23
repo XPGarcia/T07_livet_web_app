@@ -7,7 +7,11 @@ function LabeledData({ label, data }) {
       <Typography variant="caption" mb={1} color="CaptionText">
         {label}
       </Typography>
-      <Typography variant="body1" color="text.secondary">
+      <Typography
+        variant="body1"
+        color="text.secondary"
+        sx={{ lineHeight: 1.5 }}
+      >
         {data}
       </Typography>
     </Box>

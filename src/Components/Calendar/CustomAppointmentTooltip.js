@@ -4,7 +4,7 @@ import { Grid } from "@mui/material";
 import { Lens } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
-import { pickColor } from "../../Utils/Specialties";
+import { pickSpecialtyColor } from "../../Utils/Specialties";
 import { formatDate, formatTime } from "../../Utils/Dates";
 
 import classes from "./CustomAppointmentTooltip.module.css";
@@ -21,7 +21,7 @@ function TooltipContent({ appointmentData }) {
         <Grid item xs={2} className={classes.textCenter}>
           <Lens
             className={classes.lens}
-            sx={{ color: pickColor(appointmentData.code) }}
+            sx={{ color: pickSpecialtyColor(appointmentData.code) }}
           />
         </Grid>
         <Grid item xs={10}>
@@ -58,7 +58,7 @@ function TooltipContent({ appointmentData }) {
         className={classes.container}
         sx={{ justifyContent: "center" }}
       >
-        <CustomButton color={pickColor(appointmentData.code)}>
+        <CustomButton color={pickSpecialtyColor(appointmentData.code)}>
           Tomar datos
         </CustomButton>
       </Grid>

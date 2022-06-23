@@ -26,7 +26,7 @@ const Specialties = {
   }
 };
 
-function pickColor(code) {
+function pickSpecialtyColor(code) {
   switch (code) {
     case Specialties.CARDIOLOGY.code:
       return Specialties.CARDIOLOGY.color;
@@ -43,7 +43,7 @@ function pickColor(code) {
   }
 }
 
-function getName(code) {
+function getSpecialtyName(code) {
   switch (code) {
     case Specialties.CARDIOLOGY.code:
       return Specialties.CARDIOLOGY.name;
@@ -60,5 +60,5 @@ function getName(code) {
   }
 }
 
-export { pickColor, getName };
+export { pickSpecialtyColor, getSpecialtyName };
 export default Object.freeze(Specialties);

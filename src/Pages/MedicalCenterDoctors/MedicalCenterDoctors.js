@@ -22,7 +22,7 @@ function useQuery() {
   return React.useMemo(() => new URLSearchParams(search), [search]);
 }
 
-function MedicalCenter() {
+function MedicalCenterDoctors() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const query = useQuery();
@@ -44,11 +44,16 @@ function MedicalCenter() {
     setDoctorList(getDoctorList(specialty.code, event.target.dataset.value));
   };
 
-  const setScheduleHandler = (doctor, scheduleId) => {
+  const setScheduleHandler = (doctor, schedule) => {
     dispatch(
       appointmentActions.setDoctor({ id: doctor.id, name: doctor.name })
     );
-    dispatch(appointmentActions.setSchedule(scheduleId));
+    dispatch(
+      appointmentActions.setSchedule({
+        id: schedule.id,
+        startDate: schedule.startDate
+      })
+    );
     setIsComplete(true);
   };
 
@@ -133,6 +138,7 @@ function MedicalCenter() {
               variant={isComplete ? "contained" : "outlined"}
               endIcon={<ArrowForwardIosIcon />}
               disabled={!isComplete}
+              onClick={() => navigate("/citas/especialidades/centros/crear")}
             >
               Continuar
             </Button>
@@ -143,4 +149,4 @@ function MedicalCenter() {
   );
 }
 
-export default MedicalCenter;
+export default MedicalCenterDoctors;

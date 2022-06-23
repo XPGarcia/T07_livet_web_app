@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import SidebarLayout from "../../Layouts/SidebarLayout";
-import SpecialtyList, { pickColor } from "../../Utils/Specialties";
+import SpecialtyList, { pickSpecialtyColor } from "../../Utils/Specialties";
 import CustomButton from "../../UI/CustomButton/CustomButton";
 import { appointmentActions } from "../../Store/appointment";
 
@@ -12,12 +12,11 @@ function Specialties() {
   const navigate = useNavigate();
   const params = { specialty: "" };
 
-  const navigateToCentroMedico = (code) => {
-    dispatch(appointmentActions.setSpecialty(code));
-    params.specialty = code;
-    // 👇️ navigate to /crearCita
+  const navigateToMedicalCenter = (key) => {
+    dispatch(appointmentActions.setSpecialty(SpecialtyList[key].code));
+    params.specialty = key;
     navigate({
-      pathname: "/citas/crearCita/centroMedico",
+      pathname: "/citas/especialidades/centros",
       search: `?${createSearchParams(params)}`
     });
   };
@@ -41,9 +40,9 @@ function Specialties() {
         {Object.keys(SpecialtyList).map((key) => (
           <CustomButton
             key={key}
-            color={pickColor(SpecialtyList[key].code)}
+            color={pickSpecialtyColor(SpecialtyList[key].code)}
             className="crearButton"
-            onClick={() => navigateToCentroMedico(key)}
+            onClick={() => navigateToMedicalCenter(key)}
           >
             {SpecialtyList[key].name}
           </CustomButton>

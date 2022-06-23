@@ -8,9 +8,8 @@ import classes from "./FloatingButton.module.css";
 function FloatingButton() {
   const navigate = useNavigate();
 
-  const navigateToCita = () => {
-    // 👇️ navigate to /crearCita
-    navigate("/citas/crearCita");
+  const navigateToSpecialties = () => {
+    navigate("/citas/especialidades");
   };
 
   return (
@@ -23,7 +22,7 @@ function FloatingButton() {
         <Fab
           variant="extended"
           color="primary"
-          onClick={navigateToCita}
+          onClick={navigateToSpecialties}
           aria-label="crear cita"
         >
           <CreateIcon color="white" sx={{ mr: 1 }} />

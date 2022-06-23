@@ -20,9 +20,9 @@ const patients = [
     birthDate: "1997-12-19",
     gender: "M",
     civilStatus: "Soltero",
-    address: "Sauces 6 Mz 125 Villa 41",
-    state: "Guayas",
-    city: "Guayaquil",
+    address: "",
+    state: "",
+    city: "",
     phone: "2147583",
     cellphone: "0913784698",
     email: "xavier.garcia@test.com"
