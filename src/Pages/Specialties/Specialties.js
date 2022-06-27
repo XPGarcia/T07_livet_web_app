@@ -1,19 +1,15 @@
 import React from "react";
 import Box from "@mui/material/Box";
 import { createSearchParams, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import SidebarLayout from "../../Layouts/SidebarLayout";
 import SpecialtyList, { pickSpecialtyColor } from "../../Utils/Specialties";
 import CustomButton from "../../UI/CustomButton/CustomButton";
-import { appointmentActions } from "../../Store/appointment";
 
 function Specialties() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = { specialty: "" };
 
   const navigateToMedicalCenter = (key) => {
-    dispatch(appointmentActions.setSpecialty(SpecialtyList[key].code));
     params.specialty = key;
     navigate({
       pathname: "/citas/especialidades/centros",

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Box, Button, ButtonGroup, TextField } from "@mui/material";
+import { Alert, Box, Button, ButtonGroup, TextField } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,28 +15,23 @@ import getPatient from "../../Services/patientService";
 import { formatDate, formatTime } from "../../Utils/Dates";
 import { getSpecialtyName } from "../../Utils/Specialties";
 import { appointmentActions } from "../../Store/appointment";
+import Validator from "../../Utils/Validators";
 
 function CreateAppointment() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment);
 
-  const [searchSSN, setSearchSSN] = useState();
-  const [patient, setPatient] = useState({});
-  const [openDialog, setOpenDialog] = useState(false);
+  const [searchSSN, setSearchSSN] = useState("");
+  const [errorSearchSSN, setErrorSearchSSN] = useState({
+    hasError: false,
+    message: ""
+  });
 
-  const searchPatient = () => {
-    const searchedPatient = getPatient(searchSSN);
-    setPatient(searchedPatient ?? {});
-    if (searchedPatient.id) {
-      dispatch(
-        appointmentActions.setClient({
-          id: searchedPatient.id,
-          name: searchedPatient.name
-        })
-      );
-    }
-  };
+  const [patient, setPatient] = useState({});
+
+  const [patientNotFound, setPatientNotFound] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const openDialogHandler = () => setOpenDialog(true);
 
@@ -46,23 +41,58 @@ function CreateAppointment() {
     navigate("/citas");
   };
 
+  const isValid = () => {
+    const errorData = Validator(searchSSN, ["required", "length"], {
+      length: 10
+    });
+    setErrorSearchSSN(errorData);
+    return !errorData.hasError;
+  };
+
+  const searchPatient = (event) => {
+    event.preventDefault();
+    if (!isValid()) return;
+    const searchedPatient = getPatient(searchSSN);
+    setPatient(searchedPatient ?? {});
+    if (searchedPatient && searchedPatient.id) {
+      dispatch(
+        appointmentActions.setClient({
+          id: searchedPatient.id,
+          name: searchedPatient.name
+        })
+      );
+      setPatientNotFound(false);
+    } else {
+      setPatientNotFound(true);
+    }
+  };
+
   return (
     <SidebarLayout>
       <h4>Escoger Paciente</h4>
-      <TextField
-        id="ssnPatient"
-        label="Buscar por cédula"
-        value={searchSSN}
-        onChange={(event) => setSearchSSN(event.target.value)}
-        autoComplete="off"
-        InputProps={{
-          endAdornment: (
-            <Button variant="contained" color="primary" onClick={searchPatient}>
-              Buscar
-            </Button>
-          )
-        }}
-      />
+      <form onSubmit={searchPatient}>
+        <TextField
+          id="ssnPatient"
+          label="Buscar por cédula"
+          value={searchSSN}
+          onChange={(event) => setSearchSSN(event.target.value)}
+          autoComplete="off"
+          InputProps={{
+            endAdornment: (
+              <Button type="submit" variant="contained" color="primary">
+                Buscar
+              </Button>
+            )
+          }}
+          error={errorSearchSSN.hasError}
+          helperText={errorSearchSSN.message}
+        />
+      </form>
+      {patientNotFound && (
+        <Alert sx={{ marginTop: 3 }} severity="warning">
+          No se ha encontrado un paciente con esta información
+        </Alert>
+      )}
       {patient.id && (
         <PatientGeneralData patient={patient} style={{ marginTop: "24px" }} />
       )}

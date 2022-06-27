@@ -5,7 +5,6 @@ const initialAppointmentState = {
     id: "",
     name: ""
   },
-  specialty: "",
   medicalCenter: "",
   doctor: {
     id: "",
@@ -43,18 +42,8 @@ const appointmentSlice = createSlice({
       state.schedule.id = action.payload.id;
       state.schedule.startDate = action.payload.startDate;
     },
-    resetAppointment(state) {
-      state.client = {
-        id: "",
-        name: ""
-      };
-      state.specialty = "";
-      state.medicalCenter = "";
-      state.doctor = {
-        id: "",
-        name: ""
-      };
-      state.schedule = "";
+    resetAppointment() {
+      return initialAppointmentState;
     }
   }
 });
