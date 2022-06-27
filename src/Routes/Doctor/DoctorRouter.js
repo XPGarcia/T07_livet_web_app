@@ -6,6 +6,7 @@ import Protected from "../../Utils/Protected";
 import PacientList from "../../Pages/Pacients/PacientList";
 import MedicalAppointmentList from "../../Pages/MedicalAppointList/MedicalAppointmentList";
 import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
+import RegistrarPaciente from "../../Pages/Pacients/RegistrarPaciente";
 
 function DoctorRouter() {
   return (
@@ -33,6 +34,14 @@ function DoctorRouter() {
         element={
           <Protected>
             <PacientList />
+          </Protected>
+        }
+      />
+      <Route
+        path="/registrarpacientes"
+        element={
+          <Protected>
+            <RegistrarPaciente />
           </Protected>
         }
       />
