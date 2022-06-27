@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -27,6 +27,13 @@ function MedicalCenterDoctors() {
   const navigate = useNavigate();
   const query = useQuery();
   const appointment = useSelector((state) => state.appointment);
+
+  useEffect(() => {
+    dispatch(appointmentActions.resetAppointment());
+    dispatch(
+      appointmentActions.setSpecialty(Specialties[query.get("specialty")].code)
+    );
+  }, []);
 
   const specialty = Specialties[query.get("specialty")];
 
@@ -102,7 +109,7 @@ function MedicalCenterDoctors() {
         </Box>
         {doctorList.length === 0 && (
           <Alert sx={{ margin: 1 }} severity="warning">
-            No se disponen de citas para la fecha seleccionada
+            No se disponen de citas para la fecha y lugar seleccionados
           </Alert>
         )}
         <Grid container>
