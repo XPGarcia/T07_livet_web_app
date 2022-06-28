@@ -13,7 +13,14 @@ import { preparationActions } from "../../../Store/MedicalRecord/preparation";
 import { hasRole } from "../../../Store/auth";
 import Roles from "../../../Utils/Roles";
 
-function PreparationTextField({ id, label, value, unitLabel, changeHandler }) {
+function PreparationTextField({
+  id,
+  label,
+  value,
+  unitLabel,
+  changeHandler,
+  viewMode
+}) {
   return (
     <Grid item p={1} xs={12} lg={4}>
       <TextField
@@ -28,15 +35,20 @@ function PreparationTextField({ id, label, value, unitLabel, changeHandler }) {
         }}
         fullWidth
         autoComplete="off"
+        disabled={viewMode}
       />
     </Grid>
   );
 }
 
-function Preparation() {
+function Preparation({ data, viewMode }) {
   const dispatch = useDispatch();
-  const preparation = useSelector((state) => state.preparation);
+  let preparation = useSelector((state) => state.preparation);
   const navigate = useNavigate();
+
+  if (viewMode && data) {
+    preparation = data;
+  }
 
   const setBloodPressure = (bloodPressure) =>
     dispatch(preparationActions.setBloodPressure(bloodPressure));
@@ -67,6 +79,7 @@ function Preparation() {
           unitLabel="mmhg"
           value={preparation.bloodPressure}
           changeHandler={setBloodPressure}
+          viewMode={viewMode}
         />
         <PreparationTextField
           id="heartRate"
@@ -74,6 +87,7 @@ function Preparation() {
           unitLabel="lpm"
           value={preparation.heartRate}
           changeHandler={setHeartRate}
+          viewMode={viewMode}
         />
         <PreparationTextField
           id="breathingFrequency"
@@ -81,6 +95,7 @@ function Preparation() {
           unitLabel="rpm"
           value={preparation.breathingFrequency}
           changeHandler={setBreathingFrequency}
+          viewMode={viewMode}
         />
         <PreparationTextField
           id="temperature"
@@ -88,6 +103,7 @@ function Preparation() {
           unitLabel="C"
           value={preparation.temperature}
           changeHandler={setTemperature}
+          viewMode={viewMode}
         />
         <PreparationTextField
           id="oxygenSaturation"
@@ -95,6 +111,7 @@ function Preparation() {
           unitLabel="%"
           value={preparation.oxygenSaturation}
           changeHandler={setOxygenSaturation}
+          viewMode={viewMode}
         />
       </Grid>
       <Divider style={{ marginBottom: "16px", marginTop: "16px" }} />
@@ -105,6 +122,7 @@ function Preparation() {
           unitLabel="cm"
           value={preparation.height}
           changeHandler={setHeight}
+          viewMode={viewMode}
         />
         <PreparationTextField
           id="weight"
@@ -112,6 +130,7 @@ function Preparation() {
           unitLabel="Kg"
           value={preparation.weight}
           changeHandler={setWeight}
+          viewMode={viewMode}
         />
       </Grid>
       <Box
@@ -122,7 +141,7 @@ function Preparation() {
           paddingTop: 3
         }}
       >
-        {hasRole(Roles.SECRETARY) && (
+        {hasRole(Roles.SECRETARY) && !viewMode && (
           <Button
             color="primary"
             variant="contained"

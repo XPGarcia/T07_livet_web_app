@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function SingleList({ data, onDelete }) {
+function SingleList({ data, onDelete, viewMode }) {
   return (
     <TableContainer component={Paper} sx={{ marginTop: 2 }}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -23,14 +23,16 @@ function SingleList({ data, onDelete }) {
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
-              <TableCell align="right">
-                <IconButton
-                  color="error"
-                  onClick={(event) => onDelete(event, row)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
+              {!viewMode && (
+                <TableCell align="right">
+                  <IconButton
+                    color="error"
+                    onClick={(event) => onDelete(event, row)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

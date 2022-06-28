@@ -11,8 +11,13 @@ function SystemButton({
   active,
   value,
   onSystemSelected,
-  onDescriptionChange
+  onDescriptionChange,
+  viewMode
 }) {
+  const systemSelectedHandler = (selectedSystem) => {
+    if (viewMode) return;
+    onSystemSelected(selectedSystem);
+  };
   return (
     <Grid container mb={3}>
       <Grid item xs={12} mb={2}>
@@ -23,7 +28,7 @@ function SystemButton({
           sx={{ width: "200px" }}
           onClick={(event) => {
             event.preventDefault();
-            onSystemSelected(system);
+            systemSelectedHandler(system);
           }}
         >
           {title}
@@ -41,6 +46,7 @@ function SystemButton({
             multiline
             rows={2}
             fullWidth
+            disabled={viewMode}
           />
         )}
       </Grid>
@@ -48,9 +54,13 @@ function SystemButton({
   );
 }
 
-function OrganSystemReview() {
+function OrganSystemReview({ data, viewMode }) {
   const dispatch = useDispatch();
-  const organSystemReview = useSelector((state) => state.organSystemReview);
+  let organSystemReview = useSelector((state) => state.organSystemReview);
+
+  if (viewMode && data) {
+    organSystemReview = data;
+  }
 
   const selectSystemHandler = (system) => {
     dispatch(
@@ -76,50 +86,56 @@ function OrganSystemReview() {
       <SystemButton
         title="Neurológico"
         system="neurologico"
-        active={organSystemReview.neurologico.active}
-        value={organSystemReview.neurologico.description}
+        active={organSystemReview.neurologico?.active}
+        value={organSystemReview.neurologico?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
       <SystemButton
         title="Cardiovascular"
         system="cardiovascular"
-        active={organSystemReview.cardiovascular.active}
-        value={organSystemReview.cardiovascular.description}
+        active={organSystemReview.cardiovascular?.active}
+        value={organSystemReview.cardiovascular?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
       <SystemButton
         title="Respiratorio"
         system="respiratorio"
-        active={organSystemReview.respiratorio.active}
-        value={organSystemReview.respiratorio.description}
+        active={organSystemReview.respiratorio?.active}
+        value={organSystemReview.respiratorio?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
       <SystemButton
         title="Digestivo"
         system="digestivo"
-        active={organSystemReview.digestivo.active}
-        value={organSystemReview.digestivo.description}
+        active={organSystemReview.digestivo?.active}
+        value={organSystemReview.digestivo?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
       <SystemButton
         title="Tegumentario"
         system="tegumentario"
-        active={organSystemReview.tegumentario.active}
-        value={organSystemReview.tegumentario.description}
+        active={organSystemReview.tegumentario?.active}
+        value={organSystemReview.tegumentario?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
       <SystemButton
         title="Renal"
         system="renal"
-        active={organSystemReview.renal.active}
-        value={organSystemReview.renal.description}
+        active={organSystemReview.renal?.active}
+        value={organSystemReview.renal?.description}
         onSystemSelected={selectSystemHandler}
         onDescriptionChange={setSystemDescriptionHandler}
+        viewMode={viewMode}
       />
     </Box>
   );

@@ -6,9 +6,13 @@ import CloseIcon from "@mui/icons-material/Close";
 import { diagnosticActions } from "../../../Store/MedicalRecord/diagnostic";
 import SingleList from "../../../Components/SingleList/SingleList";
 
-function Diagnostic() {
+function Diagnostic({ data, viewMode }) {
   const dispatch = useDispatch();
-  const diagnostic = useSelector((state) => state.diagnostic);
+  let diagnostic = useSelector((state) => state.diagnostic);
+
+  if (viewMode && data) {
+    diagnostic = data;
+  }
 
   const setNewDiagnosticHandler = (text) => {
     dispatch(diagnosticActions.setNewDiagnostic(text));
@@ -31,7 +35,9 @@ function Diagnostic() {
 
   const deleteDiagnosticHandler = (event, payload) => {
     event.preventDefault();
-    const temp = diagnostic.data.filter((data) => data.id !== payload.id);
+    const temp = diagnostic.data.filter(
+      (localData) => localData.id !== payload.id
+    );
     dispatch(diagnosticActions.setDiagnostics(temp));
   };
 
@@ -45,7 +51,7 @@ function Diagnostic() {
         }}
       >
         <h4>Diagnóstico</h4>
-        {!diagnostic.adding && (
+        {!viewMode && !diagnostic.adding && (
           <Button
             variant="outlined"
             size="small"
@@ -56,7 +62,7 @@ function Diagnostic() {
             Diagnóstico nuevo
           </Button>
         )}
-        {diagnostic.adding && (
+        {!viewMode && diagnostic.adding && (
           <Button
             variant="outlined"
             size="small"
@@ -70,7 +76,11 @@ function Diagnostic() {
         )}
       </Box>
       <Divider />
-      <SingleList data={diagnostic.data} onDelete={deleteDiagnosticHandler} />
+      <SingleList
+        data={diagnostic.data}
+        onDelete={deleteDiagnosticHandler}
+        viewMode={viewMode}
+      />
       <div style={{ height: "16px" }} />
       {diagnostic.adding && (
         <TextField

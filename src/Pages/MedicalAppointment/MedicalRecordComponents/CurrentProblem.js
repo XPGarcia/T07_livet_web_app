@@ -3,13 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, TextField } from "@mui/material";
 import { currentProblemActions } from "../../../Store/MedicalRecord/currentProblem";
 
-function CurrentProblem() {
+function CurrentProblem({ data, viewMode }) {
   const dispatch = useDispatch();
-  const currentProblem = useSelector((state) => state.currentProblem);
+  let currentProblem = useSelector((state) => state.currentProblem);
+
+  if (viewMode && data) {
+    currentProblem = data;
+  }
 
   const setCurrentProblem = (event) => {
-    const data = event.target.value.trim();
-    dispatch(currentProblemActions.setCurrentProblem(data));
+    const localData = event.target.value.trim();
+    dispatch(currentProblemActions.setCurrentProblem(localData));
   };
 
   return (
@@ -23,6 +27,7 @@ function CurrentProblem() {
         multiline
         rows={18}
         fullWidth
+        disabled={viewMode}
       />
     </Box>
   );

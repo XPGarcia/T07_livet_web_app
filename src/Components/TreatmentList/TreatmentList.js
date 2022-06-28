@@ -11,7 +11,8 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-function TreatmentList({ data, onDelete }) {
+function TreatmentList({ data, onDelete, viewMode }) {
+  if (!data) return <div />;
   return (
     <TableContainer component={Paper} sx={{ marginTop: 2 }}>
       <Table sx={{ minWidth: 650 }} aria-label="treatment table">
@@ -21,7 +22,7 @@ function TreatmentList({ data, onDelete }) {
             <TableCell align="right">Presentación/Concentración</TableCell>
             <TableCell align="right">Cantidad</TableCell>
             <TableCell align="right">Indicaciones</TableCell>
-            <TableCell align="right">...</TableCell>
+            {!viewMode && <TableCell align="right">...</TableCell>}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -42,14 +43,16 @@ function TreatmentList({ data, onDelete }) {
               <TableCell align="right">
                 {row.treatmentFields.indications}
               </TableCell>
-              <TableCell align="right">
-                <IconButton
-                  color="error"
-                  onClick={(event) => onDelete(event, row)}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </TableCell>
+              {!viewMode && (
+                <TableCell align="right">
+                  <IconButton
+                    color="error"
+                    onClick={(event) => onDelete(event, row)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              )}
             </TableRow>
           ))}
         </TableBody>

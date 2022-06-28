@@ -6,15 +6,19 @@ import CloseIcon from "@mui/icons-material/Close";
 import { backgroundDataActions } from "../../../Store/MedicalRecord/backgroundData";
 import SingleList from "../../../Components/SingleList/SingleList";
 
-function BackgrounData() {
+function BackgrounData({ data, viewMode }) {
   const dispatch = useDispatch();
-  const backgroundData = useSelector((state) => state.backgroundData);
+  let backgroundData = useSelector((state) => state.backgroundData);
 
   const [addPersonalBackground, setAddPersonalBackground] = useState(false);
   const [addFamilyBackground, setAddFamilyBackground] = useState(false);
 
   const [newPersonalBackground, setNewPersonalBackground] = useState("");
   const [newFamilyBackground, setNewFamilyBackground] = useState("");
+
+  if (viewMode && data) {
+    backgroundData = data;
+  }
 
   const addPersonalBackgroundHandler = (event) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
@@ -30,7 +34,7 @@ function BackgrounData() {
   const deletePersonalBackgroundHandler = (event, payload) => {
     event.preventDefault();
     const temp = backgroundData.personalBackgrounds.filter(
-      (data) => data.id !== payload.id
+      (localData) => localData.id !== payload.id
     );
     dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
   };
@@ -49,7 +53,7 @@ function BackgrounData() {
   const deleteFamilyBackgroundHandler = (event, payload) => {
     event.preventDefault();
     const temp = backgroundData.familyBackgrounds.filter(
-      (data) => data.id !== payload.id
+      (localData) => localData.id !== payload.id
     );
     dispatch(backgroundDataActions.setFamilyBackgrounds(temp));
   };
@@ -64,7 +68,7 @@ function BackgrounData() {
         }}
       >
         <h4>Antecedentes Personales</h4>
-        {!addPersonalBackground && (
+        {!addPersonalBackground && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -75,7 +79,7 @@ function BackgrounData() {
             Añadir nuevo
           </Button>
         )}
-        {addPersonalBackground && (
+        {addPersonalBackground && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -92,6 +96,7 @@ function BackgrounData() {
       <SingleList
         data={backgroundData.personalBackgrounds}
         onDelete={deletePersonalBackgroundHandler}
+        viewMode={viewMode}
       />
       <div style={{ height: "16px" }} />
       {addPersonalBackground && (
@@ -115,7 +120,7 @@ function BackgrounData() {
         }}
       >
         <h4>Antecedentes Familiares</h4>
-        {!addFamilyBackground && (
+        {!addFamilyBackground && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -126,7 +131,7 @@ function BackgrounData() {
             Añadir nuevo
           </Button>
         )}
-        {addFamilyBackground && (
+        {addFamilyBackground && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -143,6 +148,7 @@ function BackgrounData() {
       <SingleList
         data={backgroundData.familyBackgrounds}
         onDelete={deleteFamilyBackgroundHandler}
+        viewMode={viewMode}
       />
       <div style={{ height: "16px" }} />
       {addFamilyBackground && (

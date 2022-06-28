@@ -41,4 +41,12 @@ function formatTime(data) {
   });
 }
 
-export { formatDate, formatTime };
+function formatSimpleDate(data) {
+  const fullDate = new Date(data);
+  const date = fullDate.getDate();
+  const month = months[fullDate.getMonth()];
+  const year = fullDate.getFullYear();
+  return `${date}/${month}/${year}`;
+}
+
+export { formatDate, formatTime, formatSimpleDate };

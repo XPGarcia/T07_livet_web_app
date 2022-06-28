@@ -6,6 +6,14 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { hasRole } from "../../Store/auth";
 import Roles from "../../Utils/Roles";
+import Preparation from "./MedicalRecordComponents/Preparation";
+import ConsultationReasons from "./MedicalRecordComponents/ConsultationReasons";
+import BackgrounData from "./MedicalRecordComponents/BackgroundData";
+import CurrentProblem from "./MedicalRecordComponents/CurrentProblem";
+import PhysicalExam from "./MedicalRecordComponents/PhysicalExam";
+import OrganSystemReview from "./MedicalRecordComponents/OrganSystemReview";
+import Diagnostic from "./MedicalRecordComponents/Diagnostic";
+import Treatment from "./MedicalRecordComponents/Treatment";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -37,16 +45,7 @@ function OnlyDoctorTab({ ...props }) {
   }
 }
 
-function MedicalRecord({
-  preparationComponent,
-  consultationReasonsComponent,
-  backgroundDataComponent,
-  currentProblemComponent,
-  physicalExamComponent,
-  organSystemReviewComponent,
-  diagnosticComponent,
-  treatmentComponent
-}) {
+function MedicalRecord({ storedRecord, viewMode }) {
   const theme = useTheme();
   const isDesktopView = useMediaQuery(theme.breakpoints.up("md"));
 
@@ -91,28 +90,44 @@ function MedicalRecord({
         <OnlyDoctorTab label="Tratamiento" {...a11yProps(7)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        {preparationComponent}
+        <Preparation data={storedRecord?.preparation} viewMode={viewMode} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        {consultationReasonsComponent}
+        <ConsultationReasons
+          data={storedRecord?.consultationReasons}
+          viewMode={viewMode}
+        />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        {backgroundDataComponent}
+        <BackgrounData
+          data={storedRecord?.backgroundData}
+          viewMode={viewMode}
+        />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        {currentProblemComponent}
+        <CurrentProblem
+          data={storedRecord?.currentProblem}
+          viewMode={viewMode}
+        />
       </TabPanel>
       <TabPanel value={value} index={4}>
-        {physicalExamComponent}
+        <PhysicalExam data={storedRecord?.physicalExam} viewMode={viewMode} />
       </TabPanel>
       <TabPanel value={value} index={5}>
-        {organSystemReviewComponent}
+        <OrganSystemReview
+          data={storedRecord?.organSystemReview}
+          viewMode={viewMode}
+        />
       </TabPanel>
       <TabPanel value={value} index={6}>
-        {diagnosticComponent}
+        <Diagnostic data={storedRecord?.diagnostic} viewMode={viewMode} />
       </TabPanel>
       <TabPanel value={value} index={7}>
-        {treatmentComponent}
+        <Treatment
+          storedDiagnostic={storedRecord?.diagnostic}
+          storedTreatment={storedRecord?.treatment}
+          viewMode={viewMode}
+        />
       </TabPanel>
     </Box>
   );

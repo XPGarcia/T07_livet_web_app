@@ -11,8 +11,14 @@ function RegionButton({
   active,
   value,
   onRegionSelected,
-  onDescriptionChange
+  onDescriptionChange,
+  viewMode
 }) {
+  const regionSelectedHandler = (regionSelected) => {
+    if (viewMode) return;
+    onRegionSelected(regionSelected);
+  };
+
   return (
     <Grid container mb={3}>
       <Grid item xs={12} mb={2}>
@@ -23,7 +29,7 @@ function RegionButton({
           sx={{ width: "200px" }}
           onClick={(event) => {
             event.preventDefault();
-            onRegionSelected(region);
+            regionSelectedHandler(region);
           }}
         >
           {title}
@@ -41,6 +47,7 @@ function RegionButton({
             multiline
             rows={2}
             fullWidth
+            disabled={viewMode}
           />
         )}
       </Grid>
@@ -48,9 +55,13 @@ function RegionButton({
   );
 }
 
-function PhysicalExam() {
+function PhysicalExam({ data, viewMode }) {
   const dispatch = useDispatch();
-  const physicalExam = useSelector((state) => state.physicalExam);
+  let physicalExam = useSelector((state) => state.physicalExam);
+
+  if (viewMode && data) {
+    physicalExam = data;
+  }
 
   const selectRegionHandler = (region) => {
     dispatch(
@@ -76,50 +87,56 @@ function PhysicalExam() {
       <RegionButton
         title="Cabeza"
         region="cabeza"
-        active={physicalExam.cabeza.active}
-        value={physicalExam.cabeza.description}
+        active={physicalExam.cabeza?.active}
+        value={physicalExam.cabeza?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
       <RegionButton
         title="Cuello"
         region="cuello"
-        active={physicalExam.cuello.active}
-        value={physicalExam.cuello.description}
+        active={physicalExam.cuello?.active}
+        value={physicalExam.cuello?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
       <RegionButton
         title="Tórax"
         region="torax"
-        active={physicalExam.torax.active}
-        value={physicalExam.torax.description}
+        active={physicalExam.torax?.active}
+        value={physicalExam.torax?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
       <RegionButton
         title="Abdomen"
         region="abdomen"
-        active={physicalExam.abdomen.active}
-        value={physicalExam.abdomen.description}
+        active={physicalExam.abdomen?.active}
+        value={physicalExam.abdomen?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
       <RegionButton
         title="Pelvis"
         region="pelvis"
-        active={physicalExam.pelvis.active}
-        value={physicalExam.pelvis.description}
+        active={physicalExam.pelvis?.active}
+        value={physicalExam.pelvis?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
       <RegionButton
         title="Extremidades"
         region="extremidades"
-        active={physicalExam.extremidades.active}
-        value={physicalExam.extremidades.description}
+        active={physicalExam.extremidades?.active}
+        value={physicalExam.extremidades?.description}
         onRegionSelected={selectRegionHandler}
         onDescriptionChange={setRegionDescriptionHandler}
+        viewMode={viewMode}
       />
     </Box>
   );

@@ -3,12 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
+import { useNavigate } from "react-router-dom";
 import { treatmentActions } from "../../../Store/MedicalRecord/treatment";
 import TreatmentList from "../../../Components/TreatmentList/TreatmentList";
 
-function TreatmentBlock({ diagnostic }) {
+function TreatmentBlock({ diagnostic, data, viewMode }) {
   const dispatch = useDispatch();
-  const treatment = useSelector((state) => state.treatment);
+  let treatment = useSelector((state) => state.treatment);
+
+  if (viewMode && data) {
+    treatment = data;
+  }
 
   const initialTreatmentState = {
     medicine: "",
@@ -42,7 +47,7 @@ function TreatmentBlock({ diagnostic }) {
   const deleteTreatmentHandler = (event, payload) => {
     event.preventDefault();
     const temp = treatment.data[payload.diagnosticId].filter(
-      (data) => data.id !== payload.id
+      (localData) => localData.id !== payload.id
     );
     dispatch(
       treatmentActions.setTreatment({
@@ -63,7 +68,7 @@ function TreatmentBlock({ diagnostic }) {
         }}
       >
         <h4>{diagnostic.name}</h4>
-        {!addTreatment && (
+        {!addTreatment && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -74,7 +79,7 @@ function TreatmentBlock({ diagnostic }) {
             Tratamiento nuevo
           </Button>
         )}
-        {addTreatment && (
+        {addTreatment && !viewMode && (
           <Button
             variant="outlined"
             size="small"
@@ -88,8 +93,9 @@ function TreatmentBlock({ diagnostic }) {
         )}
       </Box>
       <TreatmentList
-        data={treatment.data[diagnostic.id] ?? []}
+        data={treatment.data[diagnostic.id]}
         onDelete={deleteTreatmentHandler}
+        viewMode={viewMode}
       />
       <div style={{ height: "16px" }} />
       {addTreatment && (
@@ -161,10 +167,16 @@ function TreatmentBlock({ diagnostic }) {
   );
 }
 
-function Treatment() {
+function Treatment({ storedDiagnostic, storedTreatment, viewMode }) {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const diagnostic = useSelector((state) => state.diagnostic);
-  const treatment = useSelector((state) => state.treatment);
+  let diagnostic = useSelector((state) => state.diagnostic);
+  let treatment = useSelector((state) => state.treatment);
+
+  if (viewMode && storedDiagnostic && storedTreatment) {
+    diagnostic = storedDiagnostic;
+    treatment = storedTreatment;
+  }
 
   const setRecomendationHandler = (event) => {
     event.preventDefault();
@@ -174,8 +186,13 @@ function Treatment() {
   return (
     <Box>
       <h4>Tratamientos</h4>
-      {diagnostic.data.map((data) => (
-        <TreatmentBlock key={data.id} diagnostic={data} />
+      {diagnostic.data.map((localData) => (
+        <TreatmentBlock
+          key={localData.id}
+          diagnostic={localData}
+          data={treatment}
+          viewMode={viewMode}
+        />
       ))}
       <div style={{ height: "8px" }} />
       <h4>Recomendaciones</h4>
@@ -186,7 +203,26 @@ function Treatment() {
         multiline
         rows={4}
         fullWidth
+        disabled={viewMode}
       />
+      {!viewMode && (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            margin: 1,
+            paddingTop: 3
+          }}
+        >
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => navigate("/consultas")}
+          >
+            Guardar
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 }

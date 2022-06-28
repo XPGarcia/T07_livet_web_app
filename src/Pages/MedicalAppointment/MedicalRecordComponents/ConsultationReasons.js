@@ -3,9 +3,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Grid, TextField } from "@mui/material";
 import { consultationReasonsActions } from "../../../Store/MedicalRecord/consultationReasons";
 
-function ConsultationReasons() {
+function ConsultationReasons({ data, viewMode }) {
   const dispatch = useDispatch();
-  const consultationReasons = useSelector((state) => state.consultationReasons);
+  let consultationReasons = useSelector((state) => state.consultationReasons);
+
+  if (viewMode && data) {
+    consultationReasons = data;
+  }
 
   const setReasonsAbstract = (reasonsAbstract) =>
     dispatch(consultationReasonsActions.setReasonsAbstract(reasonsAbstract));
@@ -26,6 +30,7 @@ function ConsultationReasons() {
             value={consultationReasons.reasonsAbstract}
             onChange={(event) => setReasonsAbstract(event.target.value)}
             fullWidth
+            disabled={viewMode}
           />
         </Grid>
         <Grid item p={1} xs={12}>
@@ -37,6 +42,7 @@ function ConsultationReasons() {
             multiline
             rows={6}
             fullWidth
+            disabled={viewMode}
           />
         </Grid>
       </Grid>
