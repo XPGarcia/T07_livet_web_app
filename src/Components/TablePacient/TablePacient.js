@@ -12,33 +12,29 @@ import {
   useGridSelector
 } from "@mui/x-data-grid";
 
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
-import CancelIcon from "@mui/icons-material/Close";
-
-import Stack from "@mui/material/Stack";
+import {
+  Stack,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField
+} from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { randomCreatedDate, randomId } from "@mui/x-data-grid-generator";
 
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Pagination from "@mui/material/Pagination";
-
-// const style = {
-//   position: "absolute",
-//   top: "50%",
-//   left: "50%",
-//   transform: "translate(-50%, -50%)",
-//   width: 400,
-//   bgcolor: "background.paper",
-//   border: "2px solid #000",
-//   boxShadow: 24,
-//   p: 4
-// };
+import { useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 
 const initialRows = [
   {
@@ -47,7 +43,7 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate()
+    Registro: randomCreatedDate()
   },
   {
     id: randomId(),
@@ -55,7 +51,7 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate()
+    Registro: randomCreatedDate()
   },
   {
     id: randomId(),
@@ -63,7 +59,33 @@ const initialRows = [
     Cedula: "09xxxxxx",
     Estado:
       "esto e suna prueba de par ala modificacion del historial del paciente",
-    Modificado: randomCreatedDate()
+    Registro: randomCreatedDate()
+  }
+];
+const initialInputFields = [
+  {
+    id: randomId(),
+    label: "Nombres",
+    type: "string",
+    value: ""
+  },
+  {
+    id: randomId(),
+    label: "Cedula",
+    type: "number",
+    value: ""
+  },
+  {
+    id: randomId(),
+    label: "Estado",
+    type: "string",
+    value: ""
+  },
+  {
+    id: randomId(),
+    label: "Registro",
+    type: "date",
+    value: new Date().toISOString().substr(0, 10)
   }
 ];
 function CustomPagination() {
@@ -93,7 +115,7 @@ function EditToolbar(props) {
         Nombres: "",
         Cedula: "",
         Estado: "",
-        Modificado: randomCreatedDate()
+        Registro: randomCreatedDate()
       }
     ]);
     setRowModesModel((oldModel) => ({
@@ -198,28 +220,38 @@ function CustomNoRowsOverlay() {
 
 function TablePacient() {
   const [rows, setRows] = React.useState(initialRows);
-  // const [open, setOpen] = React.useState(false);
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
   const [rowModesModel, setRowModesModel] = React.useState({});
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [values, setValues] = React.useState({});
+  const [selectedItem, setSelectedItem] = React.useState({ inputFields: [] });
+  const navigate = useNavigate();
+  const handleDialogOpen = () => {
+    const fields = [...initialInputFields];
 
-  const handleClick = () => {
-    const id = randomId();
-    setRows((oldRows) => [
-      ...oldRows,
-      {
-        id,
-        Nombres: "",
-        Cedula: "",
-        Estado: "",
-        Modificado: randomCreatedDate()
-      }
-    ]);
-    setRowModesModel((oldModel) => ({
-      ...oldModel,
-      [id]: { mode: GridRowModes.Edit, fieldToFocus: "Nombres" }
-    }));
+    setSelectedItem({ inputFields: fields });
+    setDialogOpen(true);
   };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  // const handleClick = () => {
+  //   const id = randomId();
+  //   setRows((oldRows) => [
+  //     ...oldRows,
+  //     {
+  //       id,
+  //       Nombres: "",
+  //       Cedula: "",
+  //       Estado: "",
+  //       Registro: randomCreatedDate()
+  //     }
+  //   ]);
+  //   setRowModesModel((oldModel) => ({
+  //     ...oldModel,
+  //     [id]: { mode: GridRowModes.Edit, fieldToFocus: 'Nombres' }
+  //   }));
+  // };
   const handleRowEditStart = (params, event) => {
     event.defaultMuiPrevented = true;
   };
@@ -228,9 +260,9 @@ function TablePacient() {
     event.defaultMuiPrevented = true;
   };
 
-  const handleEditClick = (id) => () => {
-    setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
-  };
+  // const handleEditClick = (id) => () => {
+  //   setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
+  // };
 
   const handleSaveClick = (id) => () => {
     setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
@@ -239,7 +271,23 @@ function TablePacient() {
   const handleDeleteClick = (id) => () => {
     setRows(rows.filter((row) => row.id !== id));
   };
+  const handleSubmit = () => {
+    setDialogOpen(false);
+  };
+  // function to create initial state
+  const createInitialState = (fields) => {
+    const tempObj = {};
+    fields.forEach((item) =>
+      Object.assign(tempObj, { [item.id]: item.value ? item.value : "" })
+    );
+    return tempObj;
+  };
 
+  // update values state when props state
+  React.useEffect(() => {
+    const initialValues = createInitialState(selectedItem.inputFields);
+    setValues(initialValues);
+  }, [selectedItem]);
   const handleCancelClick = (id) => () => {
     setRowModesModel({
       ...rowModesModel,
@@ -257,33 +305,56 @@ function TablePacient() {
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
     return updatedRow;
   };
+  // form submit
+  const handleFormSubmit = () => {
+    handleSubmit();
+  };
 
+  // input value change
+  const handleInputValue = (e) => {
+    const { name, value } = e.target;
+
+    setValues({
+      ...rows,
+      [name]: value
+    });
+  };
   const columns = [
-    { field: "Nombres", type: "string", width: 180, editable: true },
+    {
+      field: "Nombres",
+      headerName: "Nombres",
+      type: "string",
+      width: 180,
+      editable: true
+    },
     {
       field: "Cedula",
       type: "string",
       width: 150,
       align: "center",
-      editable: true
+      editable: true,
+      headerName: "Cedula"
     },
     {
       field: "Estado",
       type: "string",
       width: 290,
       align: "center",
-      editable: true
+      editable: true,
+      headerName: "Esatdo"
     },
     {
-      field: "Modificado",
+      field: "Registro",
       type: "dateTime",
       width: 180,
       align: "center",
-      editable: true
+      editable: true,
+      headerName: "Registro"
     },
     {
       field: "actions",
       type: "actions",
+      headerName: "Actions",
       width: 80,
       align: "center",
       flex: 0.3,
@@ -312,7 +383,11 @@ function TablePacient() {
           <GridActionsCellItem
             icon={<EditIcon />}
             label="Edit"
-            onClick={handleEditClick(id)}
+            // onClick={handleEditClick(id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDialogOpen(e);
+            }}
             color="primary"
           />,
           <GridActionsCellItem
@@ -320,7 +395,21 @@ function TablePacient() {
             label="Delete"
             onClick={handleDeleteClick(id)}
             color="warning"
+          />,
+          <GridActionsCellItem
+            icon={<VisibilityIcon />}
+            label="Ver registro"
+            onClick={() => navigate(`/consultas`)}
+            color="success"
           />
+          // <GridActionsCellItem
+          //   icon={<AddCircleIcon />}
+          //   label="Add Article"
+          //   onClick={(e) => {
+          //     e.stopPropagation();
+          //     handleDialogOpen(e);
+          //   }}
+          // />
         ];
       }
     }
@@ -377,25 +466,50 @@ function TablePacient() {
         <br />
       </div>
       <Stack spacing={2} direction="row" justifyContent="center">
-        <Button variant="contained" onClick={handleClick}>
+        <Button
+          variant="contained"
+          type="submit"
+          onClick={() => navigate(`/registrarpacientes`)}
+        >
           Nuevo Registro
         </Button>
+        <Dialog
+          open={dialogOpen}
+          onClose={handleDialogClose}
+          onBackdropClick={handleDialogClose}
+        >
+          <form onSubmit={handleFormSubmit}>
+            <DialogTitle>Editar Registro</DialogTitle>
+            <DialogContent>
+              {initialInputFields.map((field) => (
+                <TextField
+                  key={field.id}
+                  id={field.id}
+                  label={field.label}
+                  name={field.value}
+                  type={field.type}
+                  required
+                  value={values[field.id]}
+                  margin="normal"
+                  variant="standard"
+                  fullWidth
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  onChange={(e) => {
+                    e.stopPropagation();
+                    handleInputValue(field.id);
+                  }}
+                />
+              ))}
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleDialogClose}>Cancelar</Button>
+              <Button type="submit">Aceptar</Button>
+            </DialogActions>
+          </form>
+        </Dialog>
       </Stack>
-      {/* <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal> */}
     </Box>
   );
 }
