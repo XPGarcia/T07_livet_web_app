@@ -3,9 +3,9 @@ import { Fab, Tooltip, Zoom } from "@mui/material";
 import CreateIcon from "@mui/icons-material/Create";
 
 import { useNavigate } from "react-router-dom";
-import classes from "./FloatingButton.module.css";
+import classes from "./CreateAppointmentFloatingButton.module.css";
 
-function FloatingButton() {
+function CreateAppointmentFloatingButton() {
   const navigate = useNavigate();
 
   const navigateToSpecialties = () => {
@@ -33,4 +33,4 @@ function FloatingButton() {
   );
 }
 
-export default FloatingButton;
+export default CreateAppointmentFloatingButton;

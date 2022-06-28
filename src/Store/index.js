@@ -10,10 +10,12 @@ import organSystemReviewSlice from "./MedicalRecord/organSystemReview";
 import diagnosticSlice from "./MedicalRecord/diagnostic";
 import treatmentSlice from "./MedicalRecord/treatment";
 import appointmentSlice from "./appointment";
+import loaderSlice from "./loader";
 
 const store = configureStore({
   reducer: {
     sessionReducer,
+    loader: loaderSlice,
     calendar: calendarSlice,
     appointment: appointmentSlice,
     preparation: preparationSlice,

@@ -13,7 +13,7 @@ import PatientGeneralData from "../../Components/PatientGeneralData/PatientGener
 import SidebarLayout from "../../Layouts/SidebarLayout";
 import getPatient from "../../Services/patientService";
 import { formatDate, formatTime } from "../../Utils/Dates";
-import { getSpecialtyName } from "../../Utils/Specialties";
+import { getSpecialtyName, pickSpecialtyColor } from "../../Utils/Specialties";
 import { appointmentActions } from "../../Store/appointment";
 import Validator from "../../Utils/Validators";
 
@@ -134,15 +134,14 @@ function CreateAppointment() {
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            {`La cita será generada para el día ${formatDate(
-              appointment.date
-            )} a las ${formatTime(
-              appointment.schedule.startDate
-            )} con el doctor/a ${
-              appointment.doctor.name
-            } en la especialidad de ${getSpecialtyName(
-              appointment.specialty
-            )}.`}
+            La cita será generada para el día{" "}
+            <b>{formatDate(appointment.date)}</b> a las{" "}
+            <b>{formatTime(appointment.schedule.startDate)}</b> con el doctor/a{" "}
+            <b>{appointment.doctor.name}</b> en la especialidad de{" "}
+            <span style={{ color: pickSpecialtyColor(appointment.specialty) }}>
+              <b>{getSpecialtyName(appointment.specialty)}</b>
+            </span>
+            .
           </DialogContentText>
         </DialogContent>
         <DialogActions>

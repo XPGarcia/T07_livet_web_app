@@ -8,6 +8,7 @@ import secretaryRoutes from "../Routes/Secretary/routes";
 import doctorRoutes from "../Routes/Doctor/routes";
 import Roles from "../Utils/Roles";
 import { hasRole } from "../Store/auth";
+import Loader from "../UI/Loader/Loader";
 
 const drawerWidth = 240;
 
@@ -33,6 +34,7 @@ function SidebarLayout(props) {
         <Toolbar sx={{ display: { md: "none" } }} />
         {children}
       </Box>
+      <Loader />
     </Box>
   );
 }

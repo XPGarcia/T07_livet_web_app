@@ -1,28 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import {
-  Backdrop,
-  Box,
-  Button,
-  Card,
-  CircularProgress,
-  TextField
-} from "@mui/material";
+import { Box, Button, Card, TextField } from "@mui/material";
 
 import Snackbar from "@mui/material/Snackbar";
 
+import { useDispatch } from "react-redux";
 import styles from "./Login.module.css";
 import Validator from "../../Utils/Validators";
 import { login } from "../../Store/auth";
-import Alert from "../../Components/Alert/Alert";
+import Alert from "../../UI/Alert/Alert";
+import { loaderActions } from "../../Store/loader";
+import Loader from "../../UI/Loader/Loader";
 
 function Login() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(false);
 
   const [emailError, setEmailError] = useState({
@@ -33,6 +29,10 @@ function Login() {
     hasError: false,
     message: ""
   });
+
+  const loaderStateChange = (state) => {
+    dispatch(loaderActions.setLoading(state));
+  };
 
   const isValid = () => {
     const emailErrorData = Validator(email, ["required"]);
@@ -45,14 +45,14 @@ function Login() {
   const loginHandler = async (e) => {
     e.preventDefault();
     if (!isValid()) return;
-    setLoading(true);
+    loaderStateChange(true);
     try {
       await login(email, password);
-      setLoading(false);
+      loaderStateChange(false);
       setAlert(false);
       navigate("/");
     } catch (err) {
-      setLoading(false);
+      loaderStateChange(false);
       setAlert(true);
     }
   };
@@ -96,12 +96,6 @@ function Login() {
           </Button>
         </Card>
       </form>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
       <Snackbar
         open={alert}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
@@ -116,6 +110,7 @@ function Login() {
           Nombre de usuario o contraseña incorrecta
         </Alert>
       </Snackbar>
+      <Loader />
     </Box>
   );
 }
