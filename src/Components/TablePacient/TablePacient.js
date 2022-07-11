@@ -469,7 +469,7 @@ function TablePacient() {
         <Button
           variant="contained"
           type="submit"
-          onClick={() => navigate(`/registrarpacientes`)}
+          onClick={() => navigate("/pacientes/registrar")}
         >
           Nuevo Registro
         </Button>

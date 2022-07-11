@@ -38,7 +38,7 @@ function DoctorRouter() {
         }
       />
       <Route
-        path="/registrarpacientes"
+        path="/pacientes/registrar"
         element={
           <Protected>
             <PacientCreate />
