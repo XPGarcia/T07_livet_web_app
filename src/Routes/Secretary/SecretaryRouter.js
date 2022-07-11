@@ -10,6 +10,7 @@ import Schedule from "../../Pages/Schedule/Schedule";
 import PacientList from "../../Pages/Pacients/PacientList";
 import CreateAppointment from "../../Pages/CreateAppointment/CreateAppointment";
 import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
+import DoctorScheduler from "../../Pages/DoctorScheduler/DoctorScheduler";
 
 function SecretaryRouter() {
   return (
@@ -53,6 +54,14 @@ function SecretaryRouter() {
         element={
           <Protected>
             <PacientList />
+          </Protected>
+        }
+      />
+      <Route
+        path="/doctores"
+        element={
+          <Protected>
+            <DoctorScheduler />
           </Protected>
         }
       />

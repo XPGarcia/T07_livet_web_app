@@ -33,6 +33,7 @@ function MedicalCenterDoctors() {
     dispatch(
       appointmentActions.setSpecialty(Specialties[query.get("specialty")].code)
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const specialty = Specialties[query.get("specialty")];
