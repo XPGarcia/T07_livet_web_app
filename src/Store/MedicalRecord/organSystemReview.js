@@ -38,6 +38,9 @@ const organSystemReviewSLice = createSlice({
     },
     setSystemDescription(state, action) {
       state[action.payload.system].description = action.payload.description;
+    },
+    reset() {
+      return initialOrganSystemReview;
     }
   }
 });

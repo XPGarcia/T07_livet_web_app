@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Box, Tab, Tabs } from "@mui/material";
 import SidebarLayout from "../../Layouts/SidebarLayout";
 import PatientGeneralData from "../../Components/PatientGeneralData/PatientGeneralData";
@@ -6,6 +7,14 @@ import MedicalRecord from "./MedicalRecord";
 import MedicalHistory from "../MedicalHistory/MedicalHistory";
 import { hasRole } from "../../Store/auth";
 import Roles from "../../Utils/Roles";
+import { preparationActions } from "../../Store/MedicalRecord/preparation";
+import { backgroundDataActions } from "../../Store/MedicalRecord/backgroundData";
+import { consultationReasonsActions } from "../../Store/MedicalRecord/consultationReasons";
+import { currentProblemActions } from "../../Store/MedicalRecord/currentProblem";
+import { physicalExamActions } from "../../Store/MedicalRecord/physicalExamn";
+import { organSystemReviewActions } from "../../Store/MedicalRecord/organSystemReview";
+import { diagnosticActions } from "../../Store/MedicalRecord/diagnostic";
+import { treatmentActions } from "../../Store/MedicalRecord/treatment";
 
 const patientData = {
   id: 1,
@@ -52,7 +61,20 @@ function OnlyDoctorTab({ ...props }) {
 }
 
 function MedicalAppointment() {
+  const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
+
+  useEffect(() => {
+    dispatch(preparationActions.reset());
+    dispatch(backgroundDataActions.reset());
+    dispatch(consultationReasonsActions.reset());
+    dispatch(currentProblemActions.reset());
+    dispatch(physicalExamActions.reset());
+    dispatch(organSystemReviewActions.reset());
+    dispatch(diagnosticActions.reset());
+    dispatch(treatmentActions.reset());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

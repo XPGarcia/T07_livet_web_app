@@ -10,6 +10,9 @@ const currentProblemSLice = createSlice({
   reducers: {
     setCurrentProblem(state, action) {
       state.currentProblem = action.payload;
+    },
+    reset() {
+      return initialCurrentProblem;
     }
   }
 });

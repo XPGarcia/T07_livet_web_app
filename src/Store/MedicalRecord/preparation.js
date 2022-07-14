@@ -34,6 +34,9 @@ const preparationSlice = createSlice({
     },
     setWeight(state, action) {
       state.weight = action.payload;
+    },
+    reset() {
+      return initialPreparation;
     }
   }
 });

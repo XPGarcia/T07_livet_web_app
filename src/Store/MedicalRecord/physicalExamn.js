@@ -38,6 +38,9 @@ const physicalExamSLice = createSlice({
     },
     setRegionDescription(state, action) {
       state[action.payload.region].description = action.payload.description;
+    },
+    reset() {
+      return initialPhysicalExam;
     }
   }
 });

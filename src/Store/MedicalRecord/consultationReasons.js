@@ -14,6 +14,9 @@ const consultationReasonsSLice = createSlice({
     },
     setReasonsDescription(state, action) {
       state.reasonsDescription = action.payload;
+    },
+    reset() {
+      return initialConsultationReasons;
     }
   }
 });

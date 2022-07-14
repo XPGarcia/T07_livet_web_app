@@ -18,6 +18,9 @@ const diagnosticSLice = createSlice({
     },
     setNewDiagnostic(state, action) {
       state.newDiagnostic = action.payload;
+    },
+    reset() {
+      return initialDiagnostic;
     }
   }
 });

@@ -14,6 +14,9 @@ const backgroundDataSLice = createSlice({
     },
     setFamilyBackgrounds(state, action) {
       state.familyBackgrounds = action.payload;
+    },
+    reset() {
+      return initialBackgroundData;
     }
   }
 });

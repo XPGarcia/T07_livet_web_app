@@ -14,6 +14,9 @@ const treatmentSLice = createSlice({
     },
     setRecomendation(state, action) {
       state.recomendation = action.payload;
+    },
+    reset() {
+      return initialTreatment;
     }
   }
 });
