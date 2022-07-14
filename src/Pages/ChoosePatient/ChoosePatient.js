@@ -17,7 +17,7 @@ import { getSpecialtyName, pickSpecialtyColor } from "../../Utils/Specialties";
 import { appointmentActions } from "../../Store/appointment";
 import Validator from "../../Utils/Validators";
 
-function CreateAppointment() {
+function ChoosePatient() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment);
@@ -161,4 +161,4 @@ function CreateAppointment() {
   );
 }
 
-export default CreateAppointment;
+export default ChoosePatient;

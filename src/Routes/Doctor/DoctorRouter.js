@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Login from "../../Pages/Login/Login";
-import Landing from "../../Pages/Home/Landing";
+import Landing from "../../Pages/Landing/Landing";
 import Protected from "../../Utils/Protected";
 import PacientList from "../../Pages/Pacients/PacientList";
 import MedicalAppointmentList from "../../Pages/MedicalAppointList/MedicalAppointmentList";

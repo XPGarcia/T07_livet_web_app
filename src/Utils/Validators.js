@@ -14,6 +14,15 @@ function length(value, expected) {
   };
 }
 
+function isNumber(value) {
+  const pattern = /^\d+$/;
+  if (pattern.test(value)) return null;
+  return {
+    hasError: true,
+    message: "Este campo debe ser un valor numérico."
+  };
+}
+
 function Validator(value, validations, payload) {
   let data = { hasError: false, message: "" };
   // eslint-disable-next-line no-restricted-syntax
@@ -24,6 +33,9 @@ function Validator(value, validations, payload) {
         break;
       case "length":
         data = length(value, payload.length) ?? data;
+        break;
+      case "number":
+        data = isNumber(value) ?? data;
         break;
       default:
         break;

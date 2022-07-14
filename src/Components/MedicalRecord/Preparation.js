@@ -9,9 +9,9 @@ import {
   TextField
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { preparationActions } from "../../../Store/MedicalRecord/preparation";
-import { hasRole } from "../../../Store/auth";
-import Roles from "../../../Utils/Roles";
+import { preparationActions } from "../../Store/MedicalRecord/preparation";
+import { hasRole } from "../../Store/auth";
+import Roles from "../../Utils/Roles";
 
 function PreparationTextField({
   id,

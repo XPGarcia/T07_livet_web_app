@@ -6,14 +6,14 @@ import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { hasRole } from "../../Store/auth";
 import Roles from "../../Utils/Roles";
-import Preparation from "./MedicalRecordComponents/Preparation";
-import ConsultationReasons from "./MedicalRecordComponents/ConsultationReasons";
-import BackgrounData from "./MedicalRecordComponents/BackgroundData";
-import CurrentProblem from "./MedicalRecordComponents/CurrentProblem";
-import PhysicalExam from "./MedicalRecordComponents/PhysicalExam";
-import OrganSystemReview from "./MedicalRecordComponents/OrganSystemReview";
-import Diagnostic from "./MedicalRecordComponents/Diagnostic";
-import Treatment from "./MedicalRecordComponents/Treatment";
+import Preparation from "../../Components/MedicalRecord/Preparation";
+import ConsultationReasons from "../../Components/MedicalRecord/ConsultationReasons";
+import BackgrounData from "../../Components/MedicalRecord/BackgroundData";
+import CurrentProblem from "../../Components/MedicalRecord/CurrentProblem";
+import PhysicalExam from "../../Components/MedicalRecord/PhysicalExam";
+import OrganSystemReview from "../../Components/MedicalRecord/OrganSystemReview";
+import Diagnostic from "../../Components/MedicalRecord/Diagnostic";
+import Treatment from "../../Components/MedicalRecord/Treatment/Treatment";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

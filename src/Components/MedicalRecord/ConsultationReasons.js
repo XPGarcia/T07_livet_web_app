@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Box, Grid, TextField } from "@mui/material";
-import { consultationReasonsActions } from "../../../Store/MedicalRecord/consultationReasons";
+import { consultationReasonsActions } from "../../Store/MedicalRecord/consultationReasons";
 
 function ConsultationReasons({ data, viewMode }) {
   const dispatch = useDispatch();

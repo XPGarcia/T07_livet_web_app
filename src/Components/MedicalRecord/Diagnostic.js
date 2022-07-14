@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Divider, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-import { diagnosticActions } from "../../../Store/MedicalRecord/diagnostic";
-import SingleList from "../../../Components/SingleList/SingleList";
+import { diagnosticActions } from "../../Store/MedicalRecord/diagnostic";
+import SingleList from "../SingleList/SingleList";
 
 function Diagnostic({ data, viewMode }) {
   const dispatch = useDispatch();

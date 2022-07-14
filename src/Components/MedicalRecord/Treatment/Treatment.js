@@ -1,48 +1,22 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import { treatmentActions } from "../../../Store/MedicalRecord/treatment";
-import TreatmentList from "../../../Components/TreatmentList/TreatmentList";
+import TreatmentList from "./TreatmentList";
+import TreatmentForm from "./TreatmentForm";
 
 function TreatmentBlock({ diagnostic, data, viewMode }) {
   const dispatch = useDispatch();
   let treatment = useSelector((state) => state.treatment);
 
+  const [addTreatment, setAddTreatment] = useState(false);
+
   if (viewMode && data) {
     treatment = data;
   }
-
-  const initialTreatmentState = {
-    medicine: "",
-    presentation: "",
-    quantity: "",
-    indications: ""
-  };
-
-  const [addTreatment, setAddTreatment] = useState(false);
-  const [newTreatment, setNewTreatment] = useState(initialTreatmentState);
-
-  const addTreatmentHandler = (event) => {
-    event.preventDefault();
-    const temp = treatment.data[diagnostic.id]
-      ? [...treatment.data[diagnostic.id]]
-      : [];
-    temp.push({
-      id: Math.floor(Math.random() * 100) + 1,
-      diagnosticId: diagnostic.id,
-      treatmentFields: newTreatment
-    });
-    dispatch(
-      treatmentActions.setTreatment({
-        diagnosticId: diagnostic.id,
-        treatments: temp
-      })
-    );
-    setNewTreatment(initialTreatmentState);
-  };
 
   const deleteTreatmentHandler = (event, payload) => {
     event.preventDefault();
@@ -99,69 +73,11 @@ function TreatmentBlock({ diagnostic, data, viewMode }) {
       />
       <div style={{ height: "16px" }} />
       {addTreatment && (
-        <Grid container style={{ marginBottom: "16px" }}>
-          <Grid item xs={12} md={4} p={1}>
-            <TextField
-              id="medicineInput"
-              label="Medicamento"
-              fullWidth
-              value={newTreatment.medicine}
-              onChange={(event) =>
-                setNewTreatment({
-                  ...newTreatment,
-                  medicine: event.target.value
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12} md={4} p={1}>
-            <TextField
-              id="presentationInput"
-              label="Presentación/Concentración"
-              fullWidth
-              value={newTreatment.presentation}
-              onChange={(event) =>
-                setNewTreatment({
-                  ...newTreatment,
-                  presentation: event.target.value
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12} md={4} p={1}>
-            <TextField
-              id="quantityInput"
-              label="Cantidad"
-              fullWidth
-              value={newTreatment.quantity}
-              onChange={(event) =>
-                setNewTreatment({
-                  ...newTreatment,
-                  quantity: event.target.value
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12} p={1}>
-            <TextField
-              id="indicationsInput"
-              label="Indicaciones"
-              fullWidth
-              value={newTreatment.indications}
-              onChange={(event) =>
-                setNewTreatment({
-                  ...newTreatment,
-                  indications: event.target.value
-                })
-              }
-            />
-          </Grid>
-          <Grid item xs={12} sx={{ display: "flex", justifyContent: "center" }}>
-            <Button variant="contained" onClick={addTreatmentHandler}>
-              Guardar
-            </Button>
-          </Grid>
-        </Grid>
+        <TreatmentForm
+          diagnostic={diagnostic}
+          data={data}
+          viewMode={viewMode}
+        />
       )}
     </Box>
   );

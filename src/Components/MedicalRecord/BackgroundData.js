@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Divider, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
-import { backgroundDataActions } from "../../../Store/MedicalRecord/backgroundData";
-import SingleList from "../../../Components/SingleList/SingleList";
+import { backgroundDataActions } from "../../Store/MedicalRecord/backgroundData";
+import SingleList from "../SingleList/SingleList";
 
 function BackgrounData({ data, viewMode }) {
   const dispatch = useDispatch();

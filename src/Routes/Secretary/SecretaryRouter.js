@@ -2,14 +2,14 @@ import React from "react";
 
 import { Routes, Route } from "react-router-dom";
 import Login from "../../Pages/Login/Login";
-import Landing from "../../Pages/Home/Landing";
+import Landing from "../../Pages/Landing/Landing";
 import Protected from "../../Utils/Protected";
 import Specialties from "../../Pages/Specialties/Specialties";
 import MedicalCenterDoctors from "../../Pages/MedicalCenterDoctors/MedicalCenterDoctors";
 import Schedule from "../../Pages/Schedule/Schedule";
 import PacientList from "../../Pages/Pacients/PacientList";
 import PacientCreate from "../../Pages/Pacients/PacientCreate";
-import CreateAppointment from "../../Pages/CreateAppointment/CreateAppointment";
+import ChoosePatient from "../../Pages/ChoosePatient/ChoosePatient";
 import MedicalAppointment from "../../Pages/MedicalAppointment/MedicalAppointment";
 import DoctorScheduler from "../../Pages/DoctorScheduler/DoctorScheduler";
 
@@ -46,7 +46,7 @@ function SecretaryRouter() {
         path="/citas/especialidades/centros/crear"
         element={
           <Protected>
-            <CreateAppointment />
+            <ChoosePatient />
           </Protected>
         }
       />

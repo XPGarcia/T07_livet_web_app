@@ -6,7 +6,7 @@ import { hasRole } from "../Store/auth";
 
 import Login from "../Pages/Login/Login";
 import Protected from "../Utils/Protected";
-import Landing from "../Pages/Home/Landing";
+import Landing from "../Pages/Landing/Landing";
 import Roles from "../Utils/Roles";
 import SecretaryRouter from "./Secretary/SecretaryRouter";
 import DoctorRouter from "./Doctor/DoctorRouter";

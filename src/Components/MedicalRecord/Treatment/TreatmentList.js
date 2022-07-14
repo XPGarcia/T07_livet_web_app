@@ -12,7 +12,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 
 function TreatmentList({ data, onDelete, viewMode }) {
-  if (!data) return <div />;
+  if (!data || data.length === 0) return <div />;
   return (
     <TableContainer component={Paper} sx={{ marginTop: 2 }}>
       <Table sx={{ minWidth: 650 }} aria-label="treatment table">

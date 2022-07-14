@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Box, Button, Grid, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { organSystemReviewActions } from "../../../Store/MedicalRecord/organSystemReview";
+import { organSystemReviewActions } from "../../Store/MedicalRecord/organSystemReview";
 
 function SystemButton({
   title,
