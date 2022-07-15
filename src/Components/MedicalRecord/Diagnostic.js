@@ -22,12 +22,21 @@ function Diagnostic({ data, viewMode }) {
     dispatch(diagnosticActions.setAdding(adding));
   };
 
-  const addDiagnosticHandler = (event) => {
+  const addWithEnterKey = (event, addingFunction) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
+    addingFunction();
+  };
+
+  const addWithButton = (event, addingFunction) => {
+    event.preventDefault();
+    addingFunction();
+  };
+
+  const addDiagnosticHandler = () => {
     const temp = [...diagnostic.data];
     temp.push({
       id: Math.floor(Math.random() * 100) + 1,
-      name: event.target.value.trim()
+      name: diagnostic.newDiagnostic.trim()
     });
     dispatch(diagnosticActions.setDiagnostics(temp));
     setNewDiagnosticHandler("");
@@ -89,7 +98,19 @@ function Diagnostic({ data, viewMode }) {
           fullWidth
           value={diagnostic.newDiagnostic}
           onChange={(event) => setNewDiagnosticHandler(event.target.value)}
-          onKeyDown={addDiagnosticHandler}
+          onKeyDown={(event) => addWithEnterKey(event, addDiagnosticHandler)}
+          InputProps={{
+            endAdornment: (
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                onClick={(event) => addWithButton(event, addDiagnosticHandler)}
+              >
+                Añadir
+              </Button>
+            )
+          }}
         />
       )}
     </Box>

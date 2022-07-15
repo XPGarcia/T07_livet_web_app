@@ -20,12 +20,21 @@ function BackgrounData({ data, viewMode }) {
     backgroundData = data;
   }
 
-  const addPersonalBackgroundHandler = (event) => {
+  const addWithEnterKey = (event, addingFunction) => {
     if (event.key !== "Enter" || event.target.value.trim() === "") return;
+    addingFunction();
+  };
+
+  const addWithButton = (event, addingFunction) => {
+    event.preventDefault();
+    addingFunction();
+  };
+
+  const addPersonalBackgroundHandler = () => {
     const temp = [...backgroundData.personalBackgrounds];
     temp.push({
       id: Math.floor(Math.random() * 100) + 1,
-      name: event.target.value.trim()
+      name: newPersonalBackground.trim()
     });
     dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
     setNewPersonalBackground("");
@@ -39,12 +48,11 @@ function BackgrounData({ data, viewMode }) {
     dispatch(backgroundDataActions.setPersonalBackgrounds(temp));
   };
 
-  const addFamilyBackgroundHandler = (event) => {
-    if (event.key !== "Enter" || event.target.value.trim() === "") return;
+  const addFamilyBackgroundHandler = () => {
     const temp = [...backgroundData.familyBackgrounds];
     temp.push({
       id: Math.floor(Math.random() * 100) + 1,
-      name: event.target.value.trim()
+      name: newFamilyBackground.trim()
     });
     dispatch(backgroundDataActions.setFamilyBackgrounds(temp));
     setNewFamilyBackground("");
@@ -106,7 +114,23 @@ function BackgrounData({ data, viewMode }) {
           fullWidth
           value={newPersonalBackground}
           onChange={(event) => setNewPersonalBackground(event.target.value)}
-          onKeyDown={addPersonalBackgroundHandler}
+          onKeyDown={(event) =>
+            addWithEnterKey(event, addPersonalBackgroundHandler)
+          }
+          InputProps={{
+            endAdornment: (
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                onClick={(event) =>
+                  addWithButton(event, addPersonalBackgroundHandler)
+                }
+              >
+                Añadir
+              </Button>
+            )
+          }}
         />
       )}
 
@@ -158,7 +182,23 @@ function BackgrounData({ data, viewMode }) {
           fullWidth
           value={newFamilyBackground}
           onChange={(event) => setNewFamilyBackground(event.target.value)}
-          onKeyDown={addFamilyBackgroundHandler}
+          onKeyDown={(event) =>
+            addWithEnterKey(event, addFamilyBackgroundHandler)
+          }
+          InputProps={{
+            endAdornment: (
+              <Button
+                type="button"
+                variant="contained"
+                color="primary"
+                onClick={(event) =>
+                  addWithButton(event, addFamilyBackgroundHandler)
+                }
+              >
+                Añadir
+              </Button>
+            )
+          }}
         />
       )}
     </Box>

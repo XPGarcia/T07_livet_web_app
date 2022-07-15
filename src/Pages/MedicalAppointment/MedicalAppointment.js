@@ -64,6 +64,10 @@ function MedicalAppointment() {
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(0);
 
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   useEffect(() => {
     dispatch(preparationActions.reset());
     dispatch(backgroundDataActions.reset());
@@ -75,10 +79,6 @@ function MedicalAppointment() {
     dispatch(treatmentActions.reset());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <SidebarLayout>
