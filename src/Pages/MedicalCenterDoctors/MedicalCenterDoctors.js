@@ -6,16 +6,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Box from "@mui/material/Box";
 
-import { Alert, Button, ButtonGroup, Grid } from "@mui/material";
+import { Alert, Grid } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import SidebarLayout from "../../Layouts/SidebarLayout";
 import Specialties from "../../Utils/Specialties";
 import getDoctorList from "../../Services/doctorService";
 import DoctorCard from "../../Components/DoctorCard/DoctorCard";
 import { appointmentActions } from "../../Store/appointment";
 import CustomDatePicker from "../../UI/CustomDatePicker/CustomDatePicker";
+import BottomBlockButtons from "../../Components/BottomBlockButtons/BottomBlockButtons";
 
 function useQuery() {
   const { search } = useLocation();
@@ -125,33 +124,11 @@ function MedicalCenterDoctors() {
             </Grid>
           ))}
         </Grid>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            margin: 1,
-            paddingTop: 3
-          }}
-        >
-          <ButtonGroup variant="outlined" aria-label="button group">
-            <Button
-              color="neutral"
-              startIcon={<ArrowBackIosIcon />}
-              onClick={() => navigate(-1)}
-            >
-              Regresar
-            </Button>
-            <Button
-              color="primary"
-              variant={isComplete ? "contained" : "outlined"}
-              endIcon={<ArrowForwardIosIcon />}
-              disabled={!isComplete}
-              onClick={() => navigate("/citas/especialidades/centros/crear")}
-            >
-              Continuar
-            </Button>
-          </ButtonGroup>
-        </Box>
+        <BottomBlockButtons
+          canGoBack
+          nextDisabled={!isComplete}
+          nextOnClick={() => navigate("/citas/especialidades/centros/crear")}
+        />
       </Box>
     </SidebarLayout>
   );

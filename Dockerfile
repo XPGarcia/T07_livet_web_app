@@ -10,4 +10,4 @@ RUN npm install --legacy-peer-deps
 
 COPY . ./
 
-CMD ["npm", "docker-start"]
+CMD ["npm", "run", "docker-start"]

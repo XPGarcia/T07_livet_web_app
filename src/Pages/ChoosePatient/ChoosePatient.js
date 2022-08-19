@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { Alert, Box, Button, ButtonGroup, TextField } from "@mui/material";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
+import { Alert, Button, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import PatientGeneralData from "../../Components/PatientGeneralData/PatientGeneralData";
 import SidebarLayout from "../../Layouts/SidebarLayout";
@@ -16,6 +9,8 @@ import { formatDate, formatTime } from "../../Utils/Dates";
 import { getSpecialtyName, pickSpecialtyColor } from "../../Utils/Specialties";
 import { appointmentActions } from "../../Store/appointment";
 import Validator from "../../Utils/Validators";
+import CustomDialog from "../../UI/CustomDialog/CustomDialog";
+import BottomBlockButtons from "../../Components/BottomBlockButtons/BottomBlockButtons";
 
 function ChoosePatient() {
   const navigate = useNavigate();
@@ -32,10 +27,6 @@ function ChoosePatient() {
 
   const [patientNotFound, setPatientNotFound] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
-
-  const openDialogHandler = () => setOpenDialog(true);
-
-  const closeDialogHandler = () => setOpenDialog(false);
 
   const createAppointmentHandler = () => {
     navigate("/citas");
@@ -67,6 +58,18 @@ function ChoosePatient() {
     }
   };
 
+  const dialogContent = (
+    <span>
+      La cita será generada para el día <b>{formatDate(appointment.date)}</b> a
+      las <b>{formatTime(appointment.schedule.startDate)}</b> con el doctor/a{" "}
+      <b>{appointment.doctor.name}</b> en la especialidad de{" "}
+      <span style={{ color: pickSpecialtyColor(appointment.specialty) }}>
+        <b>{getSpecialtyName(appointment.specialty)}</b>
+      </span>
+      .
+    </span>
+  );
+
   return (
     <SidebarLayout>
       <h4>Escoger Paciente</h4>
@@ -96,67 +99,18 @@ function ChoosePatient() {
       {patient.id && (
         <PatientGeneralData patient={patient} style={{ marginTop: "24px" }} />
       )}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          margin: 1,
-          paddingTop: 3
-        }}
-      >
-        <ButtonGroup variant="outlined" aria-label="button group">
-          <Button
-            color="neutral"
-            startIcon={<ArrowBackIosIcon />}
-            onClick={() => navigate(-1)}
-          >
-            Regresar
-          </Button>
-          <Button
-            color="primary"
-            variant="outlined"
-            endIcon={<ArrowForwardIosIcon />}
-            disabled={!patient.id}
-            onClick={openDialogHandler}
-          >
-            Confirmar
-          </Button>
-        </ButtonGroup>
-      </Box>
-      <Dialog
+      <BottomBlockButtons
+        canGoBack
+        nextDisabled={!patient.id}
+        nextOnClick={() => setOpenDialog(true)}
+      />
+      <CustomDialog
         open={openDialog}
-        onClose={closeDialogHandler}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          ¿Está seguro que desea confirmar la cita?
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            La cita será generada para el día{" "}
-            <b>{formatDate(appointment.date)}</b> a las{" "}
-            <b>{formatTime(appointment.schedule.startDate)}</b> con el doctor/a{" "}
-            <b>{appointment.doctor.name}</b> en la especialidad de{" "}
-            <span style={{ color: pickSpecialtyColor(appointment.specialty) }}>
-              <b>{getSpecialtyName(appointment.specialty)}</b>
-            </span>
-            .
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialogHandler} color="error">
-            Cancelar
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={createAppointmentHandler}
-            autoFocus
-          >
-            Confirmar
-          </Button>
-        </DialogActions>
-      </Dialog>
+        setOpen={setOpenDialog}
+        title="¿Está seguro que desea confirmar la cita?"
+        content={dialogContent}
+        onSubmit={createAppointmentHandler}
+      />
     </SidebarLayout>
   );
 }

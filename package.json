@@ -40,6 +40,7 @@
     "start": "react-scripts start .env",
     "build": "react-scripts build .env",
     "test": "react-scripts test",
+    "test-verbose": "react-scripts test --env=jsdom --verbose=true",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
