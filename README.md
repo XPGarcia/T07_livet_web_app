@@ -8,12 +8,25 @@
   + Medina Burbano Erwing Manuel
   + Montenegro García Danny Josue
 
-## Project Description
+## General Information
 
 Livet Project is a web application meant to schedule medical consults and handle medical records.
 
 This repository corresponds ONLY to the frontend solution.
 
+## Technologies Used
+  + HTML
+  + CSS
+  + JavaScript
+  + ReactJS
+  + NodeJS
+
+## Setup
+### Steps
+  ```
+~$ ./npm i
+~$ ./npm start
+```
 
 ## Main Users
   + Doctor
