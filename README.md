@@ -1,6 +1,6 @@
 # Livet Web App
 
-## Participants:
+## Participants 🛠️:
   + Briones Chonillo Ana María
   + Recalde Bravo Allison Doménica
   + García Baño Xavier Patricio
@@ -20,11 +20,34 @@ This repository corresponds ONLY to the frontend solution.
   + JavaScript
   + ReactJS
   + NodeJS
+  + Redux
+  + Material UI
+  + AWS Amplify
 
-## Setup
+## Features ⚙️
+Log in
+![alt text](img/login.png)
+
+HOME Doctor
+![alt text](img/homeDoctor.png)
+
+HOME Secretary
+![alt text](img/homeSecretaria.png)
+
+## Setup 🚀
 ### Steps
-  ```
+clone repository
+ ```
+~$ ./git clone https://github.com/XPGarcia/T07_livet_web_app.git
+```
+
+install dependencies
+ ```
 ~$ ./npm i
+```
+
+run the project
+```
 ~$ ./npm start
 ```
 
