@@ -1,6 +1,6 @@
 # Livet Web App
 
-## Participants:
+## Participants 🛠️:
   + Briones Chonillo Ana María
   + Recalde Bravo Allison Doménica
   + García Baño Xavier Patricio
@@ -21,10 +21,22 @@ This repository corresponds ONLY to the frontend solution.
   + ReactJS
   + NodeJS
 
-## Setup
+## Features ⚙️
+Log in
+![alt text](img/login.png)
+
+HOME Doctor
+![alt text](img/homeDoctor.png)
+
+## Setup 🚀
 ### Steps
-  ```
+install dependencies
+ ```
 ~$ ./npm i
+```
+
+run the project
+```
 ~$ ./npm start
 ```
 
