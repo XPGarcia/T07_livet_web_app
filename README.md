@@ -36,6 +36,11 @@ HOME Secretary
 
 ## Setup 🚀
 ### Steps
+clone repository
+ ```
+~$ ./git clone https://github.com/XPGarcia/T07_livet_web_app.git
+```
+
 install dependencies
  ```
 ~$ ./npm i
