@@ -28,6 +28,9 @@ Log in
 HOME Doctor
 ![alt text](img/homeDoctor.png)
 
+HOME Secretary
+![alt text](img/homeSecretaria.png)
+
 ## Setup 🚀
 ### Steps
 install dependencies
