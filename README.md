@@ -20,6 +20,9 @@ This repository corresponds ONLY to the frontend solution.
   + JavaScript
   + ReactJS
   + NodeJS
+  + Redux
+  + Material UI
+  + AWS Amplify
 
 ## Features ⚙️
 Log in
