@@ -14,6 +14,10 @@ Livet Project is a web application meant to schedule medical consults and handle
 
 This repository corresponds ONLY to the frontend solution.
 
+## App
+
+https://master.d2xu9q6nxzpr9j.amplifyapp.com/login
+
 ## Technologies Used
   + HTML
   + CSS
